@@ -1,0 +1,55 @@
+\section{Komponentenentwurf und Entwicklungsprozess (M. Jud)}
+\label{sec:jud}
+
+\subsection{Sie verstehen das Konzept der Software-Komponenten und kennen die Kriterien zur Modularisierung}
+
+\subsubsection{Komponenten}
+
+Eine Software-Komponente ist ein Softwareeinheit, die über Schnittstellen ausgetauscht werden können und damit unabhängig voneinander entwickelt werden können. Weit verbreitete Komponentenmodelle sind z.B. Microsoft .NET oder Enterprise Java Beans.
+
+Eine Komponente kann wiederverwendet oder auch ersetzt werden. Durch die eindeutige Schnittstelle wird die Qualität der Software erhöht. 
+
+In Java sind Komponenten normale Klassen. Diese Klassen können sich an die Java Bean Spezifikation halten. Verteilt werden Komponenten in einer jar-Datei.
+
+\subsubsection{Modularisierung}
+
+Durch Modularisierung wird versucht die Kopplung zu minimieren und die Kohäsion zu maximieren. Modulare Software sollte nach folgenden Kriterien Entworfen werden:
+
+\begin{itemize}
+	\item \textbf{Zerlegbarkeit} \\
+		  Zerlege ein Problem in weniger komplexe Teilprobleme (sollten unabhängig voneinander entwickelbar sein)
+	\item \textbf{Kombinierbarkeit} \\
+		  Die Software-Elemente sollten sich auch in einem anderen Umfeld einsetzen lassen
+	\item \textbf{Verständlichkeit} \\
+		  Der Quellcode eines Moduls sollte man verstehen ohne die anderen Module zu kennen
+	\item \textbf{Stetigkeit} \\
+		  Kleine Änderungen der Anforderungen sollten nur einen kleinen Teil der Module betreffen
+\end{itemize}
+
+Folgende Prinzipien sollten ebenfalls beachtet werden:
+
+\begin{itemize}
+	\item lose Kopplung
+	\item starke Kohäsion
+	\item Information Hiding (Geheimnisprinzip)
+	\item wenige Schnittstellen
+	\item explizite Schnittstellen
+\end{itemize}
+
+Man spricht von einer use-Beziehung wenn das korrekte Funktionieren von A von einer korrekten Implementation von B abhängt.
+
+\subsection{Sie kennen die Kriterien für gute Schnittstellen im Software-Entwurf und können solche Schnittstellen entwerfen}
+
+Schnittstellen machen Software einfacher verständlicher, weil der Benutzer nur die Schnittstelle kennen muss um eine Komponente verwenden zu können. Schnittstellen helfen auch Abhängigkeiten zu reduzieren. Schnittstellen erleichtern auch die Wiederverwendbarkeit von bestehender Software.
+
+\subsection{Sie können verschiedene Arten von Schnittstellen angemessen dokumentieren}
+\subsection{Sie können Komponenten entwerfen, dokumentieren, in Java realisieren, testen und deployen}
+\subsection{Sie kennen die Zusammenhänge zwischen Analyse/Design und Test/Abnahme von Softwarekomponenten}
+\subsection{Sie können geeignete Systemtests definieren, diese dokumentieren und die Durchführung protokollieren}
+\subsection{Sie wissen welche Informationen über die zu entwickelnde Software wann, wie und wo dokumentiert werden sollen}
+\subsection{Sie kennen Arten, Zweck und Bedeutung von Reviews und können ein Review durchführen und protokollieren}
+\subsection{Sie kennen Bedeutung, Begrifflichkeit und Methoden des Konfigurationsmanagements}
+\subsection{Sie können für ein kleines Entwicklungsprojekt Rahmen- und Sprint-Planung gemäss SoDa machen}
+\subsection{Sie können Sprintbacklogs für ein kleines Team formulieren, schätzen und geeignete Abnahmekriterien festlegen}
+\subsection{Sie können ein Controlling auf Projekt- und Sprintebene für kleine Entwicklungsprojekte gemäss SoDa führen}
+\subsection{Sie wissen welche Informationen aus dem Entwicklungsprozess gemäss SoDa wann, wie und wo dokumentiert werden sollen}

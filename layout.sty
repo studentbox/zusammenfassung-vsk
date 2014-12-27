@@ -1,0 +1,194 @@
+%%%
+%%% encoding and language set
+%%%
+               
+%%% Encoding
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+%%% language
+\usepackage[ngerman]{babel} 
+\usepackage{textcomp}
+\usepackage{lmodern}
+\usepackage{courier}
+
+\usepackage[toc,page]{appendix}
+
+%%%
+%%% tables
+%%%
+\usepackage{longtable}
+\usepackage[table]{xcolor}
+\usepackage{multirow}
+%%% math in tables (spreadsheet alike)
+\usepackage{spreadtab}
+%%% table coloring
+\newenvironment{zebratabular}{\rowcolors{1}{lgray}{white}\tabular}{\endtabular}
+\newenvironment{zebralongtable}{\rowcolors{1}{lgray}{white}\longtable}{\endlongtable}
+
+%%%
+%%% graphics
+%%%
+\usepackage{pgf}
+\usepackage{tikz}
+\usetikzlibrary{arrows,automata,positioning}
+\usepackage[european]{circuitikz}
+\usepackage{bchart}
+\usepackage{graphics}
+\usepackage{graphicx}
+\usepackage{sidecap}
+\usepackage{floatflt}
+\usepackage{acronym}
+\usepackage{pdflscape}
+
+%%%
+%%% colors
+%%%
+\usepackage{color}
+\usepackage{colortbl}
+\definecolor{gray}{gray}{0.749}
+\definecolor{lgray}{gray}{0.85}
+\definecolor{red}{rgb}{1, 0, 0}
+\definecolor{green}{rgb}{0, 1, 0}
+\definecolor{blue}{rgb}{0, 0, 1}
+
+%%%
+%%% hyperlinks
+%%%
+\usepackage[hidelinks]{hyperref}
+
+%%%
+%%% math
+%%%
+\usepackage{amsmath}
+\usepackage[all]{xy}
+\usepackage{amssymb}
+
+%%%
+%%% glossary
+%%%
+\usepackage[xindy]{glossaries}
+\usepackage{makeidx}
+\usepackage{caption}
+\usepackage{subcaption}
+
+%%%
+%%% pdf managment
+%%% 
+\usepackage{pdfpages}
+
+%%%
+%%% source code
+%%%  
+\definecolor{keywordcolor}{rgb}{0,0,230}		% keyword color
+\definecolor{stringcolor}{rgb}{206,123,0}		% string color
+\definecolor{commentcolor}{rgb}{150,150,150}	% comment color
+ 
+\usepackage{listings}
+\lstset{language=Java}
+\lstloadlanguages{Java}							% language options
+\lstset{
+		basicstyle=\ttfamily\footnotesize,      % fontstyle
+        numbers=left,							% linenumber placement
+        numberstyle=\tiny,						% linenumber fontsize
+        numbersep=5pt,							% how far the line-numbers are from the code
+        breaklines=true,						% print linebreaks
+        %texcsstyle=\color{black},				% code color
+        %backgroundcolor=\color{gray!10},		% background color
+        commentstyle=\color{commentcolor},		% comment color
+        keywordstyle=\color{keywordcolor},		% keyword color
+        stringstyle=\color{stringcolor},		% string color
+        frame=single,							% frame
+        tabsize=4,								% tabstop
+        rulecolor=\color{black},				% if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here)) 
+        title=\lstname,							% title is name of source file
+        escapeinside={\%*}{*)},			 		% if you want to add LaTeX within your code
+        %breakatwhitespace=true,				% sets if automatic breaks should only happen at whitespace
+        inputencoding=utf8,						% encoding = utf8
+        extendedchars=true,						% utf8 support 
+        literate=								% utf8 support
+        {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+        {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+        {à}{{\`a}}1 {è}{{\`e}}1 {ì}{{\`i}}1 {ò}{{\`o}}1 {ù}{{\`u}}1
+        {À}{{\`A}}1 {È}{{\'E}}1 {Ì}{{\`I}}1 {Ò}{{\`O}}1 {Ù}{{\`U}}1
+        {ä}{{\"a}}1 {ë}{{\"e}}1 {ï}{{\"i}}1 {ö}{{\"o}}1 {ü}{{\"u}}1
+        {Ä}{{\"A}}1 {Ë}{{\"E}}1 {Ï}{{\"I}}1 {Ö}{{\"O}}1 {Ü}{{\"U}}1
+        {â}{{\^a}}1 {ê}{{\^e}}1 {î}{{\^i}}1 {ô}{{\^o}}1 {û}{{\^u}}1
+        {Â}{{\^A}}1 {Ê}{{\^E}}1 {Î}{{\^I}}1 {Ô}{{\^O}}1 {Û}{{\^U}}1
+        {œ}{{\oe}}1 {Œ}{{\OE}}1 {æ}{{\ae}}1 {Æ}{{\AE}}1 {ß}{{\ss}}1
+        {ç}{{\c c}}1 {Ç}{{\c C}}1 {ø}{{\o}}1 {å}{{\r a}}1 {Å}{{\r A}}1
+        {€}{{\EUR}}1 {£}{{\pounds}}1
+    }
+
+%%%
+%%% commenting
+%%%
+\usepackage{verbatim}
+
+%%%
+%%% lorem ipsum and friends
+%%%  
+\usepackage{lipsum}
+\usepackage{blindtext}
+
+%%%
+%%% euro symbol
+%%%
+\usepackage{eurosym}
+
+%%%
+%%% abbreviations
+%%%
+\usepackage{acronym}
+
+%%%
+%%% alphabetical lists/enumerations
+%%%
+\usepackage{enumitem}
+
+%%%
+%%% printing URLs
+%%%
+\usepackage{url}
+
+%%%
+%%% citation
+%%%
+\usepackage{cite}
+\usepackage{apacite}
+
+%%%
+%%% header, footer and page-layout
+%%%
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}
+\fancyhf{}
+
+\addtolength{\textwidth}{5cm}
+\addtolength{\evensidemargin}{-25mm}
+\addtolength{\oddsidemargin}{-25mm}
+
+\renewcommand{\sectionmark}[1]{\markright{#1}{}}
+
+\addtolength{\headwidth}{5cm}
+\addtolength{\headheight}{1cm}
+\addtolength{\textheight}{2.5cm}
+\addtolength{\voffset}{-2.5cm}
+
+\renewcommand{\headrulewidth}{0.4pt}
+
+\fancyhead[L]{\textbf{VSK}}
+\fancyhead[C]{Hochschule Luzern - Technik \& Architektur}
+\fancyhead[R]{Zusammenfassung}
+
+\fancyfoot[L]{}
+\fancyfoot[C]{\today}
+\fancyfoot[R]{\thepage}
+
+\renewcommand{\footrulewidth}{0.4pt}
+
+%%% pagedesign
+\usepackage{multicol}
+
+\addto\captionsngerman{\let\appendixtocname\appendixname%
+\let\appendixpagename\appendixname}

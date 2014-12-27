@@ -1,0 +1,36 @@
+\documentclass[a4,paper]{article}
+
+\usepackage{layout}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% user defined commands
+%%%
+
+%%% \mygraphics{}{}{}
+%% usage:   \mygraphics{width}{filename_without_extension}{caption}{label}
+%% example: \mygraphics{0.7\textwidth}{rolling_grandma}{This is my grandmother on inlinescates}{grandma}
+%% requires: package graphicx
+%% provides: including centered pictures/graphics with a boldfaced caption below
+%% 
+\newcommand{\mygraphics}[4]{
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=#1, keepaspectratio=true]{#2}
+		\caption{#3}
+		\label{fig:#4}
+	\end{figure}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% begin document
+%%%
+
+\begin{document}
+	
+	\input{title}
+	
+	\input{content}
+	
+\end{document}

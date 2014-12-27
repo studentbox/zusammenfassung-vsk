@@ -1,3 +1,6 @@
+## Ignore build pdf
+Zusammenfassung_VSK_14HS.pdf
+
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof

@@ -1,0 +1,128 @@
+\section{Nebenläufigkeit, Verteilung, Synchronisation und Kommunikation (R. Diehl)}
+\label{sec:diehl}
+
+\subsection{Sie kennen den Lebenszyklus für Java Threads und deren Zustände}
+
+\mygraphics{0.7\textwidth}{fig/thread_lebenszyklus.png}{Thread Lebenszyklus}{thread_lebenszyklus}
+
+\subsection{Sie wissen wie ein Java Thread implementiert werden kann}
+
+\begin{enumerate}
+	\item Von Klasse \verb|Thread| ableiten
+	\item \verb|Runnable|-Interface implementieren
+\end{enumerate}
+
+\subsection{Sie kennen die drei Arten, wie ein Java Thread beendet werden kann}
+
+\begin{enumerate}
+	\item erzwungen (forceful cancellation) heisst sofortiger Abbruch
+	\item verzögert (deferred cancellation) heisst Abbruch beim nächsten Abbruchpunkt
+	\item kooperativ (cooperative cancellation) heisst Thread wird nur gebeten abzubrechen und muss sich dann selbst beenden, z.B. durch \verb|return|
+\end{enumerate}
+
+\subsection{Sie können einen Thread aus einem andern Softwareteil abbrechen}
+
+Ruft man die Methode \verb|interrupt()| an einem Thread auf, wird ein Interrupt-Flag gesetzt. Innerhalb des Threads kann dieses Flag mit der Methode \verb|Thread.currentThread.isInterrupted()| abgefragt werden und der Thread entsprechend beendet werden (z.B. mit \verb|return|). Es gibt auch noch die statische Methode \verb|Thread.interrupted()|, jedoch löscht diese Methode das Interrupt-Flag.
+Eine \verb|InterruptedException| wird von den Methoden \verb|sleep()|, \verb||join()| und \verb||wait()| geworfen, wenn sie mit \verb|interrupt()| unterbrochen wurden. Eine \verb|InterruptedException| setzt das Interrupt-Flag zurück! Deshalb sollte im catch-Teil das Interrupt-Flag nochmals gesetzt werden.
+
+\subsection{Sie kennen das Monitor Konzept}
+
+Beginnen wir mit einem anschaulichen Alltagsbeispiel. Gehen wir aufs Klo, schließen wir die Tür hinter uns. Möchte jemand anderes auf die Toilette, muss er warten. Vielleicht kommen noch mehrere dazu, die müssen dann auch warten, und eine Warteschlage bildet sich. Dass die Toilette besetzt ist, signalisiert die abgeschlossene Tür. Jeder Wartende muss so lange vor dem Klo ausharren, bis das Schloss geöffnet wird, selbst wenn der auf der Toilette Sitzende nach einer langen Nacht einnicken sollte.
+
+Wie übertragen wir das auf Java? Soll die Laufzeitumgebung nur einen Thread in einen Block lassen, ist ein Monitor nötig. Ein Monitor wird mithilfe eines Locks (zu Deutsch »Schloss«) realisiert, welches ein Thread öffnet oder schliesst. Tritt ein Thread in den kritischen Abschnitt ein, muss Programmcode wie eine Tür abgeschlossen werden (engl. lock). Erst wenn der Abschnitt durchlaufen wurde, darf die Tür wieder aufgeschlossen werden (engl. unlock), und ein anderer Thread kann den Abschnitt betreten.
+
+
+\subsection{Sie wissen was Reentrant und Nested Monitore sind und können diese vermeiden}
+
+\subsubsection{Reentrant Monitor}
+
+Betritt ein Thread eine synchronisierte Methode/Abschnitt, dessen Lock er schon besitzt, kann er sofort eintreten ohne den lock-Pool zu durchlaufen. Ohne diese Möglichkeit würden Rekursionen nicht funktionieren. Dies reduziert aber auch die Parallelität, weil kritische Abschnitte künstlich vergrössert werden.
+
+\subsubsection{Nested Monitor}
+
+Bei einem Nested Monitor werden zwei unterschiedliche Monitore ineinander verschachtelt.
+
+\begin{lstlisting}[caption={Nested Monitor},label=lst:nested_monitor]
+public void lock() throws InterruptedException {
+	synchronized(this){
+		synchronized(this.monitorObject){
+			this.monitorObject.wait();
+		}
+	}
+}	  
+\end{lstlisting}
+
+Im obigen Beispiel wird zuerst das \verb|this|-Objekt synchronisiert und danach das \verb|monitorObject|. Es besteht nun Deadlock-Gefahr. Thread 1 hält den Lock für \verb|this| und \verb|monitorObject|. Thread 1 ruft \verb|wait()| auf und gibt den Lock von \verb|monitorObject| frei, aber nicht den Lock von \verb|this|. Wenn jetzt aber Thread 2 den Lock von \verb|this| benötigt um Thread 1 aufzuwecken kommt es zu einem Deadlock.
+
+\mygraphics{0.5\textwidth}{fig/deadlock.png}{Deadlock}{deadlock}
+
+\subsection{Sie können ''Warten auf Bedingungen'' in Java umsetzten}
+
+Ruft ein Thread an einem anderen Thread \verb|wait()| auf wird dieser Schlafen gelegt (Gibt lock frei). Mit dem Aufruf von \verb|notify()| wird ein Thread aufgeweckt und mit dem Aufruf von \verb|notifyAll()| werden alle Threads aus dem Pool aufgeweckt. \verb|notifyAll()| kann zu Performance-Problemen führen. Zudem sollte die Bedingung für \verb|wait()| immer in einer \verb|while|-Schleife ausgeführt werden. Diese Massnahme verhindert dass der Thread aus Versehen aufgeweckt wird obwohl die Bedingung noch nicht eingetreten ist. 
+
+\subsection{Sie kennen ausgewählte Synchronisationsmechanismen aus der java.util.concurrent Bibliothek}
+\subsection{Sie wissen was Persistenz und Synchronität in der Kommunikation bedeutet}
+\subsection{Sie wissen was eine Nachricht ist und kennen die Prinzipien der Nachrichtenverarbeitung}
+\subsection{Sie können Nachrichten für fixe oder adaptive Protokolle mit Hilfe des Basic- oder Adaptive-Message Typs nachvollziehen}
+\subsection{Sie kennen die Entwurfsmuster 'Fabrikmethode' und 'Prototyp'}
+\subsection{Sie kennen zwei verschiedene Algorithmen zur Synchronisation von physischen Uhren}
+
+\subsubsection{Algorithmus von Cristian}
+
+Ein Zeitserver sendet am Anfang jeder UTC-Sekunde einen kurzen Impuls. Die Clients werden mit dem Server synchronisiert. Periodisch fragen die Client den Zeitserver nach der Zeit. Der Server versucht so schnell wie möglich zu antworten. Die Dauer vom Senden zum Empfangen wird gemessen und halbiert, um die Laufzeit der Anfrage auszugleichen. Liegt die Zeit des Servers hinter der Zeit des Clients, wird die Zeit des Clients verlangsamt (Uhr darf nicht rückwärts laufen!).
+
+\subsubsection{Berkeley-Algorithmus}
+
+Der Zeit-Server fragt periodisch alle Clients nach ihrer Zeit. Basierend auf den Antworten berechnet er die Durchschnittszeit und weist alle Clients an diese zu übernehmen.
+
+\subsection{Sie wissen was eine logische Uhr ist}
+
+\begin{itemize}
+	\item Es reicht aus wenn sich alle Maschinen über die gleiche Zeit einig sind
+	\item Die Maschinen müssen nicht unbedingt nach UTC synchronisiert werden
+	\item Wird vor allem eingesetzt wenn Abhängigkeiten und Verlässlichkeit wichtig sind
+\end{itemize}
+
+\subsection{Sie kennen die Happened-Before-Relation}
+
+\begin{itemize}
+	\item $a \rightarrow b$ bedeutet ''a passiert vor b'' (alle Prozesse sind sich einig das Ereignis a vor Ereignis b stattgefunden hat)
+	\item Ereignisse sind kausal unabhängig wenn $a \rightarrow b$ und $b \rightarrow a$ nicht gilt ($a \parallel b$)
+	\item Transitive Relation: wenn $a \rightarrow b$ und $b \rightarrow c$ gilt auch $a \rightarrow c$
+\end{itemize}
+
+\subsection{Sie kennen den Algorithmus des Lamport-Zeitstempels zur Synchronisation von logischen Uhren}
+
+\begin{itemize}
+	\item Jede Maschine hat eine eigene Uhr mit konstanten aber unterschiedlichen Geschwindigkeiten
+	\item Jedem Ereignis wird ein Zeitwert zugeordnet
+	\item Dieser Zeitwert sendet ein Prozess 1 an Prozess 2
+	\item Wenn der Timer von Prozess 2 kleiner ist als der von Prozess 1, wird der Timer von Prozess 2 auf den Timer von Prozess 1 gestellt und 1 dazuaddiert
+	\item Es können also nie zwei Ereignisse zur gleichen Zeit auftreten
+	\item Mit einem Lamport-Zeitstempel lässt sich nicht bestimmen ob zwei Ereignisse kausal voneinander abhängig sind
+\end{itemize}
+
+\mygraphics{0.5\textwidth}{fig/lamport.png}{Lamport-Zeitstempel mit drei Prozessen}{lamport}
+
+\subsection{Sie kennen den Algorithmus des Vektor-Zeitstempels zur Synchronisation von logischen Uhren}
+
+\begin{itemize}
+	\item Jeder Prozess besitzt einen Vektor, der für jeden Prozess im System die Anzahl Ereignisse festhält
+	\item Der Vektor wird mit jeder Nachricht mitgegeben
+	\item Tritt bei einem Prozess ein Ereignis auf inkrementiert er seinen Zähler im Vektor
+	\item Der Vektor-Zeitstempel informiert den Prozess wie viele Ereignisse bei sich und bei anderen Prozessen vorausgegangen sind
+	\item Dadurch lässt sich bestimmen ob zwei Ereignisse möglicherweise kausal voneinander abhängig sind
+\end{itemize}
+
+\mygraphics{0.7\textwidth}{fig/vektor.png}{Vektor-Zeitstempel}{vektor}
+
+\subsection{Sie können die Algorithmen zur Synchronisation von logischen Uhren in einem Programm nachvollziehen}
+
+\begin{itemize}
+	\item Prozess 1 versendet eine Nachricht an Prozess 2 und schickt seinen Zeitstempel mit
+	\item Liegt der Timer von Prozess 2 hinter dem Timer von Prozess 1 übernimmt Prozess 2 den Timer-Wert von Prozess 1 und addiert 1 dazu
+	\item Beispiel-Anwendung:
+	
+	%\hyperref{Link}{http://geekum.wordpress.com/2012/02/22/code-for-lamport-timestamps-algorithm-in-java/}
+	
+\end{itemize}

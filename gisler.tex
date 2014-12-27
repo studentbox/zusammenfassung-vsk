@@ -1,0 +1,69 @@
+\section{Entwicklungsprozess (R. Gisler)}
+\label{sec:gisler}
+
+\subsection{Sie kennen die grundlegenden Aufgaben eines Versionskontrollsystems (VCS) und können damit arbeiten}
+\subsection{Sie wissen was ein automatisierter Buildprozess ist und kennen seine Vorteile}
+
+Alle Tätigkeiten (Kompilieren, Testen, Packen usw.) des Buildprozesses werden automatisch ausgeführt. Durch die Automatisierung ergeben sich folgende Vorteile:
+
+\begin{itemize}
+	\item weniger Fehler treten auf
+	\item Ergebnisse sind reproduzierbar
+	\item unabhängig von IDE
+	\item lange Builds können z.B. über Nacht laufen
+\end{itemize}
+
+\subsection{Sie kennen die Motivation von Continuous Integration (CI) und sind in der Lage Projekte entsprechend zu entwickeln}
+
+\begin{itemize}
+	\item immer eine lauffähige Software haben
+	\item Fehler sobald als möglich entdecken (durch Tests)
+	\item parallel im Team entwickeln ohne Überblick zu verlieren
+\end{itemize}
+
+\subsection{Sie wissen was ein Buildserver ist und welche Bedeutung er für die Entwicklungstätigkeit hat}
+
+Ein Buildserver ist eine Software die Quellcode automatisch buildet und die Resultate allen Entwickler zur Verfügung stellt. Der Build wird z.B. durch eine Änderung im Repo ausgelöst. Durch einen Buildserver ergeben sich folgende Vorteile:
+
+\begin{itemize}
+	\item Entlastung von Entwicklern von repetitiven Aufgaben
+	\item Häufigere Verifikation (Buildprozess, Tests, Deploying etc.)
+	\item Statistische Information über Entwicklungsprozess
+	\item Offensive (automatische) Information über den Zustand der Projekte
+\end{itemize}
+
+\subsection{Sie kennen die verschiedenen Testarten (mindestens Unit~ und Integration~) und sind in der Lage gute Unittests zu schreiben}
+
+\subsubsection{Unittest}
+
+Schneller und automatisierter Test von kleinen Einheiten (z.B. Klasse). Es wird nur die Klasse und ohne ihre Abhängigkeiten getestet! Unittests werden während der Entwicklung meist mit Frameworks (z.B. JUnit, Mockito) erstellt und sind in die IDE integriert.
+
+\subsubsection{Integrationstest}
+
+Integrationstests werden durchgeführt wenn eine neue Komponente in eine bestehende Software-Landschaft integriert wird. Bei Integrationstests wird eher der technische Aspekt überprüft (z.B. korrekte Installation).
+
+\subsubsection{Systemtest}
+
+Bei den Systemtest wird das ganze System mittels einer Spezifikation getestet. Hier wird eher der Benutzeraspekt getestet (z.B. Usability).
+
+Integrations- und Systemtests müssen explizit in einer Phase geplant, organisiert und durchgeführt werden (klassisches Testen)
+
+
+\subsection{Sie beherrschen die Entwicklung nach dem Test First Prinzip}
+
+Die meisten Entwickler testen um Fehler zu finden. Das Test First Prinzip findet aber Fehler bevor sie gemacht werden. 
+Dazu muss man einfach die Tests vor der Implementierung schreiben (es funktioniert wirklich!). 
+Weil man zuerst die Tests schreibt denkt man eher an Ausnahmefälle und kann diese später im Code besser berücksichtigen.
+
+\subsection{Sie nutzen Werkzeuge zur Messung der Codeabdeckung aktiv zu Verbesserung Ihres Codes und der Testfälle}
+\subsection{Sie haben einen Überblick über die Designpatterns nach GoF und kennen die verschiedenen Kategorien}
+\subsection{Sie können die Patterns Singleton, Strategy, Fassade, Adapter, Fabrikmethode, Prototyp und Observer erklären und sinnvoll anwenden}
+\subsection{Sie können die oben genannten Patterns in Java in entsprechend angepasster Form implementieren und sind sich der Unterschiede zu den originalen Designs im Klaren}
+\subsection{Sie wissen worauf man beim Einsatz von Patterns in der Praxis achten sollte}
+\subsection{Sie kennen die wichtigen Aspekte des Deployments von Software}
+\subsection{Sie sind in der Lage ein Deployment adressatengerecht durchzuführen}
+\subsection{Sie beherrschen das dreistellige Versionskonzept (Semantic Versioning)}
+\subsection{Sie kennen die Motivation von Clean Code}
+\subsection{Sie können die Ergebnisse von Werkzeugen zur Messung der Code Qualität (z.B. Checkstyle, PMD etc.) sinnvoll interpretieren und nutzen}
+\subsection{Sie kennen die Kriterien von Clean Code bezüglich der Implementation von guten Testfällen}
+\subsection{Sie kennen die Kriterien von Clean Code zur Implementation von guten Methoden}
