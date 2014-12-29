@@ -2,8 +2,198 @@
 \label{sec:sollberger}
 
 \subsection{Sie kennen die wesentlichen Konzepte von Komponentenarchitekturen (im Zusammenhang mit Client/Server Systemen) und Middleware}
+
+\subsubsection{Komponentenarchitekturen}
+
+Bei den Komponentenarchitekturen werden grundsätzlich zwischen Client (kurzlebig) / Server (langlebig) und Peer-to-Peer (keine zentrale Stelle) unterschieden. Es wird auch zwischen Thin-Client und Fat-Client unterschieden. Ein Thin-Client ist stark auf die Hilfe eines Servers angewiesen, um seine Aufgaben erledigen zu können. Ein Fat-Client verarbeitet seine Daten vor Ort und ist unabhängiger vom Server. Zudem wird zwischen verschiedenen Tiers unterschieden. Bei einem 2-Tier sind Präsentation, Anwendungslogik und Datenhaltung auf zwei Anwendungen verteilt. Bei 3-Tier erhält die Anwendungslogik ein eigenes Tier (Präsentation - Logik - Daten). Bei einer n-Tier Architektur werden die Logik und Daten auf verschiedene Tiers verteilt.
+
+\subsubsection{Middleware}
+
+Eine Middleware vermittelt zwischen Anwendungen und verbirgt dadurch die Komplexität und Infrastruktur dieser Anwendung. Es wird zwischen folgenden Middleware-Kategorien unterschieden:
+
+\begin{itemize}
+	\item \textbf{Kommunikationsorientierte Middleware} \\
+		  Die Netzwerkprogrammierung wird abstrahiert (z.B. RMI, Web Services)
+	\item \textbf{Nachrichtenorientierte Middleware} \\
+		  Tauscht Nachrichten (messages) über Warteschlangen (queues) aus (z.B. JMS, SOAP)
+	\item \textbf{Anwendungsorientierte Middleware} \\
+		  Ist auf verteilte Anwendungen optimiert (z.B. CORBA, Microsoft .NET)
+\end{itemize} 
+
 \subsection{Sie kennen die wichtigsten Konzepte und Begriffe von Remote Procedure Call (RPC) / Remote Message Invocation (RMI)}
+
+\subsubsection{Remote Procedure Call (RPC)}
+
+RPC ist eine Middleware, die es einem Client ermöglicht Funktionen auf einem entfernten Server wie lokal aufzurufen. Die Kommunikation wird mit einer Schnittstelle beschrieben (z.B. mit Interface Defenition Language). Damit man über RPC kommunizieren kann braucht man folgende Komponenten:
+
+\begin{itemize}
+	\item \textbf{Client Stub} \\
+	Der Client Stub verpackt die Nachricht (marshalling) und schickt sie an den Server. Kommt die Antwort vom Server zurück verarbeitet der Client Stub diese.
+	\item \textbf{RPC Infrastruktur} \\
+	stellt Laufzeitumgebung und Infrastruktur zur Verfügung (Binding, Starten/Stoppen der Serverprozesse usw.)
+	\item \textbf{Server Stub} \\
+	Der Server Stub entpackt die Nachricht (unmarshalling) vom Client und ruft eine entsprechende Prozedur auf. Wurde die Anfrage verarbeitet schickt er das Ergebniss an den Client.
+\end{itemize}  
+
+Bei der RPC Kommunikation können Fehler auftreten (Client/Server fällt aus, Nachrichten gehen verloren usw.). Deshalb wurden folgende Fehlersemantiken definiert:
+
+\begin{itemize}
+	\item \textbf{Maybe Semantik} \\
+	Keinerlei Garantie dass die Prozedur ausgeführt wird und der Client eine Antwort erhält.
+	\item \textbf{At-least-once Semantik} \\
+	Wenn der Client nach einer gewissen Zeit keine Antwort erhält wird die Prozedur nochmals aufgerufen. Die Prozedur kann deshalb beim Server mehrmals aufgerufen werden (Client kriegt mehrere Antworten). Hilft bei Nachrichtenverlust jedoch nicht bei einem Serverausfall.
+	\item \textbf{At-most-once Semantik} \\
+	Der Server überprüft dass die Prozedur vom Client höchstens einmal ausgeführt wurde. Bei einem Serverausfall kriegt der Client keine Antwort.
+	\item \textbf{Exactly-once Semantik} \\
+	Sowohl beim Nachrichtenverlust als auch bei einem Serverausfall wird die Prozedur verarbeitet und der Client erhält eine Antwort.
+\end{itemize}
+
+\subsubsection{Remote Methode Invocation (RMI)}
+
+RMI ist RPC in Java. Die Schnittstelle werden mit Java Interfaces beschrieben welche das \verb|Remote|-Interface implementieren. Jede Methode der Schnittstelle kann eine \verb|RemoteException| werfen. Beim RMI Namensdienst (\verb|rmiregistry.exe|) werden die Schnittstellen registriert (RMI binding) und können dort vom Client nachgeschlagen werden. Listing \ref{lst:rmi} zeigt den Vorgang des Registrierens und Nachschlagen.
+
+\begin{lstlisting}[caption={RMI Binding},label=lst:rmi]
+/**
+ * Server
+ */
+// Stub von der Schnittstelle erstellen
+Remote subjectStub = UnicastRemoteObject.exportObject(subject, 0);
+// RMI Namensdienst erstellen
+LocateRegistry.createRegistry(Registry.REGISTRY_PORT);
+Registry registry = LocateRegistry.getRegistry();
+// Stub beim Namensdienst registrieren
+registry.rebind("ReferenceText", subjectStub);
+
+/**
+ * Client
+ */
+// RMI Namensdienst vom Server abrufen
+Registry registry = LocateRegistry.getRegistry("192.168.1.34");
+// Client-Stub erstellen
+subject = (TextSubject) registry.lookup("ReferenceText");
+// Client-Stub verwenden
+subject.someRemoteMethod();
+\end{lstlisting}
+
 \subsection{Sie kennen die wichtigsten Konzepte und Begriffe von Message Oriented Middleware (MoM)}
+
+Bei \ac{MoM} werden Nachrichten (messages) über Warteschlangen (queues) ausgetauscht. Dadurch werden Client und Server voneinander entkoppelt (d.h. sie müssen nicht gleichzeitig aktiv sein). Es existieren zwei Kommunikationsmodelle:
+
+\begin{itemize}
+	\item \textbf{point-to-point} \\
+		  Jede Nachricht hat genau ein Konsument.
+		  
+	\item \textbf{publish / subscribe}
+		  Herausgeber stellt allen Abonnenten eine Kopie der Nachricht zur Verfügung.
+\end{itemize}
+
+Es gibt robuste und stabile Produkte (\ac{JMS}, SOAP, Microsoft Message Queueing) welche auf \ac{MoM} basieren jedoch keinen einheitlichen Standard. Java EE bietet mit dem \ac{JMS} einen Message Dienst an.
+
 \subsection{Sie kennen die wichtigsten Konzepte und Begriffe von CORBA IDL und CORBA}
-\subsection{Sie kennen die wichtigsten Konzepte und Begriffe von DCOM und Microsoft Communication Foundation}
+
+\subsubsection{CORBA}
+
+CORBA ist eine Middleware Technologie, die mithilfe des \ac{ORB} eine Kommunikation zwischen entfernten Objekten ermöglicht. Die Objekte und deren Funktionalität sind von der Kommunikation der Objekte völlig getrennt. CORBA besteht aus folgenden Komponenten:
+
+\begin{itemize}
+	\item \textbf{Anwenderobjekten} \\
+		  Anwenderobjekte werden vom Programmierer erstellt und genutzt.
+	\item \textbf{CORBA Facilities} \\
+		  CORBA Facilities sind anwendungsorientierte Dienstleistungen (z.B. Druckdienst)
+	\item \textbf{CORBA Services} \\
+		  Die CORBA Services sind von der \ac{OMG} definiert und mittels IDL beschrieben. Der wichtigste Service ist der Naming Service, welcher verständliche Namen auf die Objektreferenz abbildet. Es gibt noch weitere Services wie z.B. der Persistent Object Service welcher Objekte in einer Datenbank speichert.
+\end{itemize}
+
+Die oben beschriebenen Objekte können über den \ac{ORB} aufgerufen werden. Abbildung \ref{fig:corba} zeigt die Bestandteile des \acp{ORB}.
+
+\mygraphics{0.7\textwidth}{fig/corba.png}{ORB Teilsysteme}{corba}
+
+Die einzelnen Teilsysteme werden anhand eines simplen Beispieles erklärt. Die Client-Anwendung ruft am \emph{IDL stub} eine Methode auf. Dieser Stub hat der Client vorher als Referenz vom Naming Service erhalten. Der Stub verhält sich auch wie ein lokales Objekt, der Programmierer merkt deshalb nichts von der darunterliegenden Kommunikation. Wenn die Methode aufgerufen wurde verpackt (marshalling) der \emph{IDL stub} alle Daten des Methodenaufrufes in eine Nachricht und übergibt diese an den \ac{ORB}. Die Nachricht wird über den \ac{ORB} an den Server übertragen und dem \emph{Object Adapter} übergeben. Der \emph{Object Adapter} aktiviert das CORBA Objekt und gibt ihn an den \emph{IDL skeleton} weiter. Das \emph{IDL skeleton} ist der Server-Stub in CORBA. Er packt die Nachricht aus und die entsprechende Methode wird am \emph{servant object} aufgerufen.
+
+Listing \ref{lst:corba} zeigt wie ein CORBA-Server/Client in Java aussehen kann. In Java wurde nur der \ac{ORB}, der \ac{POA} und der Naming Service implementiert. Es wird zudem ein Compiler (\verb|idlj.exe|) für die \ac{IDL} und ein \ac{ORB}-Dienst (\verb|orbd.exe|) mitgeliefert.
+
+\begin{lstlisting}[caption={CORBA in Java}, label=lst:corba]
+/**
+ * Server
+ */
+// ORB initialisieren
+ORB orb = ORB.init(args, null); 
+
+// POA-Referenz holen und aktivieren
+org.omg.CORBA.Object poaRef = orb.resolve_initial_references("RootPOA"); 
+POA poa = POAHelper.narrow(poaRef); 
+poa.the_POAManager().activate();
+
+// servant object erstellen und beim POA registrieren
+CalculatorImpl ci = new CalculatorImpl("shared calculator"); 
+Object ciRef = poa.servant_to_reference(ci);
+
+// Naming Service referenzieren
+org.omg.CORBA.Object nsRef = orb.resolve_initial_references("NameService"); 
+NamingContextExt ns = NamingContextExtHelper.narrow(nsRef);
+
+// servant object beim Naming Service registrieren
+path1[] = ns.to_name("sharedcalculator"); 
+ns.rebind(path1, ciRef);
+
+// Auf Client-Anfragen warten
+orb.run();
+
+/**
+ * Client
+ */
+// ORB initialisieren
+ORB orb = ORB.init(args, null);
+
+// Naming Service referenzieren
+org.omg.CORBA.Object nsRef = orb.resolve_initial_references("NameService");
+NamingContextExt ns = NamingContextExtHelper.narrow(nsRef);
+
+// Namen auflösen -> CORBA-Objektreferenz
+org.omg.CORBA.Object clac_path = ns.resolve_str("sharedcalculator");
+       
+// Objekt aus CORBA-Objektreferenz bilden
+Calculator calc = CalculatorHelper.narrow(clac_path);
+\end{lstlisting}
+
+\subsubsection{CORBA IDL}
+
+Mit der CORBA \ac{IDL} lässt sich eine Schnittstelle beschreiben und in andere Programmiersprachen übersetzten. Das ermöglicht RPC über unterschiedliche Programmiersprachen hinweg. Listing \ref{lst:idl} zeigt alle wichtigen Sprachelemente. Der Modulname ist wie ein Package in Java.
+
+\begin{lstlisting}[language=IDL, caption={Interface Definition Language (IDL) Beispiel}, label=lst:idl]
+module CourseRegistration { 
+	interface Student; // Foreward declaration 
+	interface Course { 
+		readonly attribute string subject; 
+		enum SchoolSemesters {FALL, SPRING}; 
+		attribute SchoolSemesters semester; 
+		void register(in Student student); 
+	}; 
+	interface Student {
+		struct StudentRecord { 
+			string name; 
+			unsigned long 
+			studentNo; 
+		}; 
+		attribute StudentRecord personalInfo; 
+		exception ClassFull {}; 
+		void enroll(in Course course) raises (ClassFull); 
+	}; 
+};
+\end{lstlisting}
+
+\subsection{Sie kennen die wichtigsten Konzepte und Begriffe von DCOM und Windows Communication Foundation}
+
+\ac{DCOM} ist ein objektorientiertes RPC System. DCOM ermöglicht komponentenbasierte Softwareentwicklung über verteilte Systeme. \ac{DCOM} ist inzwischen von der \ac{WCF} abgelöst worden. \ac{WCF} ist der neue, service-orientierte Microsoft-Standart für verteilte Systeme. 
+
 \subsection{Sie kennen die wichtigsten Konzepte und Begriffe von WEB Services und RESTful WEB Services}
+
+Ein Webservice ist eine Software die Maschinen-zu-Maschinen Kommunikation über das Netzwerk (Internet) ermöglicht. Jeder Webservice ist über eine \ac{URI} eindeutig identifizierbar und über eine Schnittstellenbeschreibung im maschinenlesbaren Format definiert.
+
+\subsubsection{SOAP}
+
+SOAP ist ein leichtgewichtiges Protokoll zum Informationsaustausch zwischen verteilten Systemen. Die Schnittstelle wird mit der XML-basierten \ac{WSDL} beschrieben. Das Protokoll selbst basiert ebenfalls auf XML. Ein \emph{Envelope} enthält einen \emph{Header} und einen \emph{Body}. Dieser \emph{Envelope} kann über verschiedene Protokolle (z.B. HTTP, SMTP) transportiert werden. Ein Client kann bei einem \acs{UDDI}-Dienst die Servicebeschreibung (\ac{WSDL}) beziehen und den Web Service nutzen.
+
+\subsubsection{REST}
+
+REST beschreibt einen Architekturstil (ressourcenorientiert) und ist eine einfachere Alternative zu SOAP. Bei REST ist jede Ressource über eine \ac{URI} adressierbar und wird nur mit den HTTP-Methoden (GET, POST usw.) angesteuert. Also Antwort vom Server erhält der Client meist ein JSON- oder XML-formatierter Text. Bei REST wird die Schnittstelle mit der ebenfalls XML-basierten Sprache \ac{WADL} beschrieben.

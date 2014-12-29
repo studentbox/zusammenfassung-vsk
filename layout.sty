@@ -79,33 +79,34 @@
 %%%
 %%% source code
 %%%  
-\definecolor{keywordcolor}{rgb}{0,0,230}		% keyword color
-\definecolor{stringcolor}{rgb}{206,123,0}		% string color
-\definecolor{commentcolor}{rgb}{150,150,150}	% comment color
+\definecolor{keywordcolor}{rgb}{0.5,0,0.35}				% keyword color
+\definecolor{stringcolor}{rgb}{0.6,0,0}					% string color
+\definecolor{commentcolor}{rgb}{0.25,0.5,0.35}			% comment color
+\definecolor{javadoccolor}{rgb}{0.25,0.35,0.75} 		% javadoc color
  
 \usepackage{listings}
 \lstset{language=Java}
-\lstloadlanguages{Java}							% language options
+\lstloadlanguages{Java}									% language options
 \lstset{
-		basicstyle=\ttfamily\footnotesize,      % fontstyle
-        numbers=left,							% linenumber placement
-        numberstyle=\tiny,						% linenumber fontsize
-        numbersep=5pt,							% how far the line-numbers are from the code
-        breaklines=true,						% print linebreaks
-        %texcsstyle=\color{black},				% code color
-        %backgroundcolor=\color{gray!10},		% background color
-        commentstyle=\color{commentcolor},		% comment color
-        keywordstyle=\color{keywordcolor},		% keyword color
-        stringstyle=\color{stringcolor},		% string color
-        frame=single,							% frame
-        tabsize=4,								% tabstop
-        rulecolor=\color{black},				% if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here)) 
-        title=\lstname,							% title is name of source file
-        escapeinside={\%*}{*)},			 		% if you want to add LaTeX within your code
-        %breakatwhitespace=true,				% sets if automatic breaks should only happen at whitespace
-        inputencoding=utf8,						% encoding = utf8
-        extendedchars=true,						% utf8 support 
-        literate=								% utf8 support
+		basicstyle=\ttfamily\footnotesize,      		% fontstyle
+        numbers=left,									% linenumber placement
+        numberstyle=\tiny,								% linenumber fontsize
+        numbersep=5pt,									% how far the line-numbers are from the code
+        breaklines=true,								% print linebreaks
+        backgroundcolor=\color{gray!10},				% background color
+        commentstyle=\color{commentcolor},				% comment color
+        morecomment=[s][\color{javadoccolor}]{/**}{*/}, 	% javadoc color
+        keywordstyle=\color{keywordcolor},				% keyword color
+        stringstyle=\color{stringcolor},				% string color
+        frame=single,									% frame
+        tabsize=4,										% tabstop
+        rulecolor=\color{black},						% if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here)) 
+        title=\lstname,									% title is name of source file
+        escapeinside={\%*}{*)},			 				% if you want to add LaTeX within your code
+        %breakatwhitespace=true,						% sets if automatic breaks should only happen at whitespace
+        inputencoding=utf8,								% encoding = utf8
+        extendedchars=true,								% utf8 support 
+        literate=										% utf8 support
         {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
         {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
         {à}{{\`a}}1 {è}{{\`e}}1 {ì}{{\`i}}1 {ò}{{\`o}}1 {ù}{{\`u}}1

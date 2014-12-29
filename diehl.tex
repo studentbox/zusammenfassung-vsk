@@ -58,13 +58,54 @@ Im obigen Beispiel wird zuerst das \verb|this|-Objekt synchronisiert und danach 
 
 \subsection{Sie können ''Warten auf Bedingungen'' in Java umsetzten}
 
-Ruft ein Thread an einem anderen Thread \verb|wait()| auf wird dieser Schlafen gelegt (Gibt lock frei). Mit dem Aufruf von \verb|notify()| wird ein Thread aufgeweckt und mit dem Aufruf von \verb|notifyAll()| werden alle Threads aus dem Pool aufgeweckt. \verb|notifyAll()| kann zu Performance-Problemen führen. Zudem sollte die Bedingung für \verb|wait()| immer in einer \verb|while|-Schleife ausgeführt werden. Diese Massnahme verhindert dass der Thread aus Versehen aufgeweckt wird obwohl die Bedingung noch nicht eingetreten ist. 
+Ruft ein Thread an einem anderen Thread \verb|wait()| auf wird dieser Schlafen gelegt (Gibt lock frei). Mit dem Aufruf von \verb|notify()| wird ein Thread aufgeweckt und mit dem Aufruf von \verb|notifyAll()| werden alle Threads aus dem Pool aufgeweckt. \verb|notifyAll()| kann zu Performance-Problemen führen. 
+
+Die Bedingung für \verb|wait()| sollte immer in einer \verb|while|-Schleife geprüft werden. Diese Massnahme verhindert dass der Thread aus Versehen aufgeweckt wird obwohl die Bedingung noch nicht eingetreten ist. 
+
+\verb|wait()| muss immer vor \verb|notify()| aufgerufen werden, weil das Signal nicht gespeichert wird. Wird \verb|notify()| aufgerufen und kein Thread wartet, wird auch keiner aufgeweckt.
 
 \subsection{Sie kennen ausgewählte Synchronisationsmechanismen aus der java.util.concurrent Bibliothek}
+
+\subsubsection{java.util.concurrent.Semaphore}
+
+Dem Konstruktor von \verb|Semaphore(permits)| muss mitgeteilt werden, wie viel von einer Ressource zur Verfügung steht (z.B. bei 5 Druckern stehen 5 Ressourcen bereit). Mit \verb|aquire()| wird ein Zugang angefordert. Mit \verb|release()| wird ein Zugang freigegeben.
+
+\subsection{java.util.concurrent.BlockingQueue}
+
+Dieses Interface bietet eine Queue (Puffer) an. Wenn die Queue voll ist wartet der Produzent (\verb|put(element)|). Wenn die Queue leer ist wartet der Konsument (\verb|take()|).
+
+\subsubsection{java.util.concurrent.ThreadPoolExecutor}
+
+Objekte welche das \verb|Runnable|-Interface implementiert haben, können der Methode \verb|execute(run)| übergeben werden. Der ThreadPoolExecutor verteilt die Run-Objekte auf mehrere Worker-Threads. 
+
 \subsection{Sie wissen was Persistenz und Synchronität in der Kommunikation bedeutet}
+
+\subsubsection{Persistenz}
+
+Bei einer persistenten Kommunikation wird eine Nachricht so lange gespeichert bis der Empfänger bereit ist (z.B. E-Mail). Das Gegenteil ist transiente Kommunikation bei der die Nachricht nur verarbeitet wird solange der Empfänger ausgeführt wird (z.B. Router). 
+
+\subsubsection{Synchronität}
+
+Bei einer synchronen Kommunikation wird der Sender blockiert bis der Empfänger die Nachricht empfangen hat (z.B. Telefon). Synchrone Kommunikations ist bei zeitkritischen Anwendungen von Vorteil. Bei einer asynchronen Kommunikation wird der Sender fortgesetzt unmittelbar nach dem er seine Nachricht zur Übertragung weiter gegeben hat (z.B. Diskussionsforum). Der Sender kann sich bei der asynchronen Kommunikation um andere Aufgaben kümmern, weil der nicht blockiert ist.
+
 \subsection{Sie wissen was eine Nachricht ist und kennen die Prinzipien der Nachrichtenverarbeitung}
+
+Eine Nachricht enthält eine Anzahl Elemente von bestimmten Datentypen (meist eine ID und mehrere Argumente) und wird über einen Kommunikationskanal gesendet. Mithilfe von Nachrichten wird die eigentliche Applikation von den Kommunikationsdetails getrennt.
+
 \subsection{Sie können Nachrichten für fixe oder adaptive Protokolle mit Hilfe des Basic- oder Adaptive-Message Typs nachvollziehen}
+
+\subsubsection{Fixe Protokolle}
+
+Bei fixen Kommunikationsprotokollen sind die Nachrichtenarten und ihre Argumente vor der Kommunikation bekannt. Die Nachrichten ändern sich auch nicht mehr während der Kommunikation. Die Basic-Message ist das Protokoll der Kommunikation und der BasicMessageHandler erstellt die entsprechenden Nachrichtentypen.
+
+\subsubsection{Adaptive Protokolle}
+
+Bei adaptiven Kommunikationsprotokollen ändert sich das Kommunikationsprotokoll während der Kommunikation. Der MessageHandler bewältigt die Änderungen des Nachrichten Protokolls.
+
 \subsection{Sie kennen die Entwurfsmuster 'Fabrikmethode' und 'Prototyp'}
+
+siehe Lernziel \ref{sec:patterns}
+
 \subsection{Sie kennen zwei verschiedene Algorithmen zur Synchronisation von physischen Uhren}
 
 \subsubsection{Algorithmus von Cristian}
@@ -123,6 +164,5 @@ Der Zeit-Server fragt periodisch alle Clients nach ihrer Zeit. Basierend auf den
 	\item Liegt der Timer von Prozess 2 hinter dem Timer von Prozess 1 übernimmt Prozess 2 den Timer-Wert von Prozess 1 und addiert 1 dazu
 	\item Beispiel-Anwendung:
 	
-	%\hyperref{Link}{http://geekum.wordpress.com/2012/02/22/code-for-lamport-timestamps-algorithm-in-java/}
-	
+	\href{http://geekum.wordpress.com/2012/02/22/code-for-lamport-timestamps-algorithm-in-java/}{http://geekum.wordpress.com/2012/02/22/code-for-lamport-timestamps-algorithm-in-java/}
 \end{itemize}
