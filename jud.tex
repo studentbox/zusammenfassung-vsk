@@ -29,27 +29,193 @@ Durch Modularisierung wird versucht die Kopplung zu minimieren und die Kohäsion
 Folgende Prinzipien sollten ebenfalls beachtet werden:
 
 \begin{itemize}
-	\item lose Kopplung
-	\item starke Kohäsion
+	\item lose Kopplung (Abbildung \ref{fig:kopplung_kohaesion})
+	\item starke Kohäsion (Abbildung \ref{fig:kopplung_kohaesion})
 	\item Information Hiding (Geheimnisprinzip)
 	\item wenige Schnittstellen
 	\item explizite Schnittstellen
 \end{itemize}
 
+\mygraphics{0.5\textwidth}{fig/kopplung_kohaesion.png}{Zusammenhang zwischen Kopplung und Kohäsion}{kopplung_kohaesion}
+
 Man spricht von einer use-Beziehung wenn das korrekte Funktionieren von A von einer korrekten Implementation von B abhängt.
+
+\newpage
 
 \subsection{Sie kennen die Kriterien für gute Schnittstellen im Software-Entwurf und können solche Schnittstellen entwerfen}
 
-Schnittstellen machen Software einfacher verständlicher, weil der Benutzer nur die Schnittstelle kennen muss um eine Komponente verwenden zu können. Schnittstellen helfen auch Abhängigkeiten zu reduzieren. Schnittstellen erleichtern auch die Wiederverwendbarkeit von bestehender Software.
+Schnittstellen vereinfachen die Software-Entwicklung weil:
+
+\begin{itemize}
+	\item Schnittstellen machen Software einfacher verständlicher, weil der Benutzer nur die Schnittstelle kennen muss um eine Komponente verwenden zu können.
+	\item Schnittstellen helfen auch Abhängigkeiten zu reduzieren.
+	\item Schnittstellen erleichtern auch die Wiederverwendbarkeit von bestehender Software.
+\end{itemize}
+
+Schnittstellen sollten nach folgenden Kriterien entworfen werden:
+
+\begin{itemize}
+	\item Schnittstellen sollen minimal sein (wenig Methoden, wenig Parameter, keine globalen Daten)
+	\item Schnittstellen sollen einfach zu verstehen sein
+	\item Schnittstellen sollen gut dokumentiert sein
+\end{itemize}
+
+Beim \ac{DbC} wird das Zusammenspiel der Komponenten mit einem Vertrag geregelt. Der Vertrag besteht aus:
+
+\begin{itemize}
+	\item \textbf{Preconditions} \\
+		  Zusicherungen die der Nutzer einzuhalten hat.
+	\item \textbf{Postconditions} \\
+		  Nachbedingungen die der Anbieter garantiert.
+	\item \textbf{Invarianten Bedingung} \\ 
+		  Der Anbieter muss sicherstellen, dass Invarianten vor- und nach der Ausführung jeder Methode gelten.
+\end{itemize}
 
 \subsection{Sie können verschiedene Arten von Schnittstellen angemessen dokumentieren}
+
+Jede Programmschnittstelle definiert eine Menge von Methoden mit den folgenden Eigenschaften:
+
+\begin{itemize}
+	\item \textbf{Syntax} \\
+		  Wird mit der verwendeten Programmiersprache beschrieben (Rückgabewerte, Argumente usw.).
+	\item \textbf{Semantik} \\
+		  Was bewirkt die Methode? Es gibt keine allgemein akzeptierte Form der Dokumentation.
+	\item \textbf{Protokoll} \\
+		  Wird z.B. ein synchrones oder asynchrones Protokoll verwendet.
+	\item \textbf{Nichtfunktionale Eigenschaften} \\
+		  Weitere Faktoren wie z.B. Performance, Robustheit, Verfügbarkeit usw.
+\end{itemize}
+
+Abbildung \ref{fig:schnittstellen} zeigt die verschiedenen Schnittstellen-Typen.
+
+\mygraphics{0.7\textwidth}{fig/schnittstellen.png}{Schnittstellen-Typen}{schnittstellen}
+
+\newpage
+
 \subsection{Sie können Komponenten entwerfen, dokumentieren, in Java realisieren, testen und deployen}
+
+Abbildung \ref{fig:architekturmuster} zeigt nach welchen Mustern eine komponentenbasierte Architektur entworfen werden kann.
+
+\mygraphics{0.7\textwidth}{fig/architekturmuster.png}{Architekturmuster für Komponenten}{architekturmuster}
+
+Wie Komponenten und Schnittstellen mit UML dokumentiert werden, zeigt Abbildung \ref{fig:komponenten_schnittstellen_uml}.
+
+\mygraphics{0.5\textwidth}{fig/komponenten_schnittstellen_uml.png}{Komponenten und Schnittstellen mit UML}{komponenten_schnittstellen_uml}
+
+Wenn man eine Komponentenarchitektur verwendet muss man das in der Systemspezifikation im Kapital Designentscheide festhalten. Die Kriterien dieser Architektur kommen in das Anforderungsdokument.
+
 \subsection{Sie kennen die Zusammenhänge zwischen Analyse/Design und Test/Abnahme von Softwarekomponenten}
+
+Dieser Zusammenhang lässt sich mit dem V-Modell (Abbildung \ref{fig:v_modell}) besonders gut erklären. Zu jeder Disziplin (Anforderungen, Entwurf, Implementierung) gibt es eine Entsprechung auf der Test-Seite. 
+
+\mygraphics{0.5\textwidth}{fig/v_modell.png}{V-Modell}{v_modell}
+
+Beim Validieren wird sichergestellt dass das richtige Produkt entwickelt wird (z.B. mit Kundenreview). Beim Verifizieren wird überprüft ob das Produkt der Spezifikation entspricht (z.B. mit Unit-Tests).
+
+\newpage
+
 \subsection{Sie können geeignete Systemtests definieren, diese dokumentieren und die Durchführung protokollieren}
+
+Systemtest prüfen die gesamte Wirkungskette eines Softwareproduktes unter möglichst nahen Einsatzbedingungen. Dadurch werden auch Testfälle abgedeckt die von Unit- und Integrationstests nicht behandelt wurden. Jeder Systemtest muss dokumentiert werden damit bei Änderungen, die alten Tests nochmals durchgeführt werden können (Regression). In der Beschreibung eines Testfalls sollte mindestens folgende Bestandteile enthalten sein:
+
+\begin{itemize}
+	\item Vorbedingungen
+	\item Testablauf (Was muss ich tun?)
+	\item erwartete Ergebnisse (Nachbedingungen)
+\end{itemize}
+
 \subsection{Sie wissen welche Informationen über die zu entwickelnde Software wann, wie und wo dokumentiert werden sollen}
+
+\begin{itemize}
+	\item Terminplanung gehört in den \ac{PMP}
+	\item Design Contraints (Entwurfsvorgaben) gehören in die Kundenanforderung
+	\item Erwartete Resultate der Integrationstests gehören in den Testplan
+	\item Schnittstellen und UML-Diagramme gehören in die Systemspezifikation
+\end{itemize}
+
+Abbildung \ref{fig:doku} zeigt was für wen dokumentiert wird.
+
+\mygraphics{0.5\textwidth}{fig/doku.png}{Dokumentation}{doku}
+
+\newpage
+
 \subsection{Sie kennen Arten, Zweck und Bedeutung von Reviews und können ein Review durchführen und protokollieren}
+
+Bei einem Review werden die Artefakte eines Meilensteins überprüft. Das Ziel ist Fehler möglichst früh zu erkennen und so Kosten zu sparen. Tabelle \ref{tab:reviewarten} zeigt die verschiedenen Review-Arten.
+
+\begin{table}
+	\centering
+	\begin{tabular}{|l|c|c|c|c|c|}
+		\hline Review Type 		& Planning 	& Preparation 	& Meeting 		& Correction 	& Verification 	\\ 
+		\hline Inspection 		& Yes 		& Yes 			& Yes 			& Yes 			& Yes 			\\ 
+		\hline Team Review 		& Yes 		& Yes 			& Yes 			& Yes 			& No 			\\ 
+		\hline Walkthrough 		& Yes 		& No 			& Yes 			& Yes 			& No 			\\ 
+		\hline Pair Programming & Yes 		& No 			& Continuous 	& Yes 			& Yes 			\\ 
+		\hline Peer Review 		& No 		& Yes 			& Perhaps 		& Yes 			& No 			\\ 
+		\hline Passaround 		& No 		& Yes 			& No 			& Yes 			& No 			\\ 
+		\hline AdHoc Review 	& No 		& No 			& Yes 			& Yes 			& No			\\ 
+		\hline 
+	\end{tabular}
+	\caption{Review-Arten}
+	\label{tab:reviewarten}
+\end{table}
+
 \subsection{Sie kennen Bedeutung, Begrifflichkeit und Methoden des Konfigurationsmanagements}
+
+In einem System sind alle Teilsysteme (Software, Hardware usw.) Änderungen unterworfen. Weil nicht alle Versionen miteinander funktionieren ist ein Konfigurationsmanagement notwendig. \emph{A \ac{SCI} is an aggregation of software that is designated for configuration management and is treated as a single entity in the \ac{SCM} process. Items that are controlled by \ac{SCM} in addition to the code itself include:}
+
+\begin{itemize}
+	\item \emph{plans}
+	\item \emph{specifications}
+	\item \emph{code libraries}
+	\item \emph{data and data dictionaries}
+	\item \emph{documentation for installation, maintenance, operations etc.}
+\end{itemize} 
+
+Folgende Begriffe sind im \ac{SCM} wichtig:
+
+\begin{itemize}
+	\item \textbf{Version} \\
+		  Eine Version ist ein spezifisches, identifizierbares Artefakt auf einem bestimmten Entwicklungsstand.
+	\item \textbf{Revision} \\
+		  Eine Revision ist eine neue Version eines Artefaktes mit dem Zweck eine ältere abzulösen.
+	\item \textbf{Baseline} \\
+		  Eine Baseline ist ein Satz von Revisionen, d.h. ein Snapshot der Konfiguration.
+	\item \textbf{Release} \\
+		  Ein Release ist eine getestete und freigegebene Baseline.	  
+\end{itemize}
+
 \subsection{Sie können für ein kleines Entwicklungsprojekt Rahmen- und Sprint-Planung gemäss SoDa machen}
+
+Nach klar!
+
 \subsection{Sie können Sprintbacklogs für ein kleines Team formulieren, schätzen und geeignete Abnahmekriterien festlegen}
+
+WI zügs... (Scrum Do sucks!)
+
 \subsection{Sie können ein Controlling auf Projekt- und Sprintebene für kleine Entwicklungsprojekte gemäss SoDa führen}
+
+Ist Chefsache!
+
 \subsection{Sie wissen welche Informationen aus dem Entwicklungsprozess gemäss SoDa wann, wie und wo dokumentiert werden sollen}
+
+Folgende Dokumente braucht es in einem SoDa-Projekt:
+
+\begin{itemize}
+	\item \textbf{Projektplan} \\
+		  Erstellung in der Initialisierungsphase, Aktualisierung bei jedem Meilenstein
+	\item \textbf{Grobkonzept} \\ 
+		  Erstellung in der Initialisierungsphase
+	\item \textbf{ProductBacklog} \\
+		  Erstellung in der Initialisierungsphase, laufende Pflege
+	\item \textbf{SprintBacklog} \\
+		  Erstellung zu Beginn jedes Sprints => Teil des Sprintplans
+	\item \textbf{Sprintplan} \\
+		  Erstellung zu Beginn jedes Sprints => Ablage im Anhang Projektplan
+	\item \textbf{SysSpec} \\
+		  Erstellung in der Initialisierungsphase, Ergänzung pro Inkrement
+	\item \textbf{Testplan} \\
+		  Erstellung im Projektplan, Ergänzung pro Inkrement
+	\item \textbf{Testprotokoll} \\
+		  Erstellung pro Inkrement
+\end{itemize}
