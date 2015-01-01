@@ -56,7 +56,61 @@ Dazu muss man einfach die Tests vor der Implementierung schreiben (es funktionie
 Weil man zuerst die Tests schreibt denkt man eher an Ausnahmefälle und kann diese später im Code besser berücksichtigen.
 
 \subsection{Sie nutzen Werkzeuge zur Messung der Codeabdeckung aktiv zu Verbesserung Ihres Codes und der Testfälle}
+
+Codeabdeckungswerkzeuge:
+\begin{itemize}
+	\item JaCoCo / EclEmma
+	\item JCobertura
+	\item Clover
+\end{itemize}
+Beim Fehlschlagen eines Testfalls kann so einfach nachgeforscht werden, welche Codezeilen ausgeführt wurden, und welche nicht, was ein Hinweis auf einen Fehler sein könnte.
+
 \subsection{Sie haben einen Überblick über die Designpatterns nach GoF und kennen die verschiedenen Kategorien}
+Entwurfsmuster können nach folgenden Gruppen eingeteilt werden:
+\subsubsection{Erzeugungsmuster}
+Abstrahiert das Erstellen von Objekten.
+\begin{itemize}
+    \item Abstract Factory
+    \item Builder
+    \item Factor Method
+    \item Prototype
+    \item Singleton
+    \subitem Stellt sicher, dass von einer Klasse immer nur genau ein Objekt vorhanden ist, mittels einem privaten Konstruktor und einer \verb|getInstance()|-Methode. Nachteil: Erzeugt mühsame Abhängigkeiten. 
+    Siehe Abbildung \ref{fig:Singleton}.
+    \mygraphics{0.5\textwidth}{fig/singleton.png}{Singleton}{Singleton}
+    
+\end{itemize}
+
+\subsubsection{Strukturmuster}
+Fassen Objekte zu grösseren Strukturen zusammen oder verbinden sie.
+\begin{itemize}
+    \item Adapter / Wrapper
+    \item Bridge, Handle/Body
+    \item Decorator, Wrapper
+    \item Facade
+    \subitem
+    Stellt eine Zusammenfassung für mehrere Schnittstellen eines Subsystems dar. Die Fassade weiss dann, welche Subklassen für was genau zuständig sind und somit wird es einfacher, das Subsystem zu verwenden. Allerdings birgt es die Gefahr, ein Durchlauferhitzer zu werden, weil keine neue Funktionalität in das System bringt.
+    \item Flyweight
+    \item Composite
+    \item Porxy / Surrogate
+\end{itemize}
+\subsubsection{Verhaltensmuster}
+Beschreiben die Interaktion zwischen Objekten, mit Kontrollflüssen etc. Können die Zuständigkeit / Kontrolle delegieren.
+\begin{itemize}
+    \item Befehl (Kommando, Command, Action, Transaction)
+    \item Beobachter (Observer, Dependents, Publish/Subscribe, Listener)
+    \item Besucher (Visitor)
+    \item Interpreter (Interpreter)
+    \item Iterator (Iterator, Cursor)
+    \item Memento (Memento, Token)    \item Plugin (Plugin)
+    \item Schablonenmethode (Template Method)
+    \item Strategie (Strategy, Policy)
+    \subitem Die Lösung für \verb|switch() case:| Statements. 
+    \item Vermittler (Mediator)
+    \item Zustand (State, Objects for States)
+    \item Zuständigkeitskette (Chain of Responsibility)
+\end{itemize}
+
 \subsection{Sie können die Patterns Singleton, Strategy, Fassade, Adapter, Fabrikmethode, Prototyp und Observer erklären und sinnvoll anwenden}
 \label{sec:patterns}
 \subsection{Sie können die oben genannten Patterns in Java in entsprechend angepasster Form implementieren und sind sich der Unterschiede zu den originalen Designs im Klaren}
