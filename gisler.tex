@@ -66,59 +66,177 @@ Codeabdeckungswerkzeuge:
 Beim Fehlschlagen eines Testfalls kann so einfach nachgeforscht werden, welche Codezeilen ausgeführt wurden, und welche nicht, was ein Hinweis auf einen Fehler sein könnte.
 
 \subsection{Sie haben einen Überblick über die Designpatterns nach GoF und kennen die verschiedenen Kategorien}
-Entwurfsmuster können nach folgenden Gruppen eingeteilt werden:
-\subsubsection{Erzeugungsmuster}
-Abstrahiert das Erstellen von Objekten.
-\begin{itemize}
-    \item Abstract Factory
-    \item Builder
-    \item Factor Method
-    \item Prototype
-    \item Singleton
-    \subitem Stellt sicher, dass von einer Klasse immer nur genau ein Objekt vorhanden ist, mittels einem privaten Konstruktor und einer \verb|getInstance()|-Methode. Nachteil: Erzeugt mühsame Abhängigkeiten. 
-    Siehe Abbildung \ref{fig:Singleton}.
-    \mygraphics{0.5\textwidth}{fig/singleton.png}{Singleton}{Singleton}
-    
-\end{itemize}
 
-\subsubsection{Strukturmuster}
-Fassen Objekte zu grösseren Strukturen zusammen oder verbinden sie.
+
+Entwurfsmuster können nach folgenden Gruppen eingeteilt werden:
 \begin{itemize}
-    \item Adapter / Wrapper
-    \item Bridge, Handle/Body
-    \item Decorator, Wrapper
-    \item Facade
-    \subitem
-    Stellt eine Zusammenfassung für mehrere Schnittstellen eines Subsystems dar. Die Fassade weiss dann, welche Subklassen für was genau zuständig sind und somit wird es einfacher, das Subsystem zu verwenden. Allerdings birgt es die Gefahr, ein Durchlauferhitzer zu werden, weil keine neue Funktionalität in das System bringt.
-    \item Flyweight
-    \item Composite
-    \item Porxy / Surrogate
-\end{itemize}
-\subsubsection{Verhaltensmuster}
-Beschreiben die Interaktion zwischen Objekten, mit Kontrollflüssen etc. Können die Zuständigkeit / Kontrolle delegieren.
-\begin{itemize}
-    \item Befehl (Kommando, Command, Action, Transaction)
-    \item Beobachter (Observer, Dependents, Publish/Subscribe, Listener)
-    \item Besucher (Visitor)
-    \item Interpreter (Interpreter)
-    \item Iterator (Iterator, Cursor)
-    \item Memento (Memento, Token)    \item Plugin (Plugin)
-    \item Schablonenmethode (Template Method)
-    \item Strategie (Strategy, Policy)
-    \subitem Die Lösung für \verb|switch() case:| Statements. 
-    \item Vermittler (Mediator)
-    \item Zustand (State, Objects for States)
-    \item Zuständigkeitskette (Chain of Responsibility)
+  \item \textbf{Erzeugungsmuster} \\
+  Abstrahieren das Erstellen von Objekten.
+  \item \textbf{Strukturmuster} \\
+  Fassen Objekte zu grösseren Strukturen zusammen oder verbinden sie.
+  \item \textbf{Verhaltensmuster} \\
+  Beschreiben die Interaktion zwischen Objekten, mit Kontrollflüssen etc. Können die Zuständigkeit / Kontrolle delegieren.
+  
 \end{itemize}
 
 \subsection{Sie können die Patterns Singleton, Strategy, Fassade, Adapter, Fabrikmethode, Prototyp und Observer erklären und sinnvoll anwenden}
 \label{sec:patterns}
+
+\subsubsection{Singleton (Erzeugungsmuster)}
+Stellt sicher, dass von einer Klasse immer nur genau ein Objekt vorhanden ist, mittels einem privaten Konstruktor und einer \verb|getInstance()|-Methode. Sparsam einsetzen, sonst enstehen sternförmige Abhängigkeiten zur Singletonklasse.
+    Siehe Abbildung \ref{fig:Singleton}.
+    \mygraphics{0.5\textwidth}{fig/singleton.png}{Singleton}{Singleton}
+
+\subsubsection{Strategy (Verhaltensmuster)}
+ Die Lösung für \verb|switch() case:| Statements oder wenn unterschiedliches Verhalten erriecht werden soll. 
+      \mygraphics{0.5\textwidth}{fig/strategy.png}{Strategy}{strategy}
+      Der Client muss allerdings alle Implementationen kennen und initialisiert den Kontext mit einer konkreten Implementation. Der Client ruft daraufhin einfach die \texttt{sortiere()}-Methode des Kontexts auf, um die Sortierung zu starten. Wenn ein anderer Algorithmus verwendet werden soll, so wird dem Kontext einfach eine andere Instanz des Algorithmus übergeben.
+
+\subsubsection{Fassade (Strukturmuster)}
+Stellt eine Zusammenfassung für mehrere Schnittstellen eines Subsystems dar. Die Facade weiss dann, welche Subklassen für was genau zuständig sind und delegiert die Anfragen entsprechend. \\
+    \textbf{Vorteile:}
+    \begin{itemize}
+        \item Einfachere Verwendung des Subsystems
+        \item Separation of Concerns
+        \item Unabhängige Entwicklung
+        \item Austauschbarkeit der Subsysteme da gerine Abhängigkeit untereinander
+        \item Unterklassen haben keine Kopplung
+    \end{itemize}
+    \textbf{Nachteile:} \\
+    \begin{itemize}
+        \item Delegation ist notwendig
+        \item Gefahr eines reinen Durchlauferhitzers
+    \end{itemize}
+    Siehe Abbildung \ref{fig:Facade}.
+    \mygraphics{0.5\textwidth}{fig/facade.png}{Facade}{Facade}
+
+\subsubsection{Adapter (Strukturmuster)}
+\mygraphics{0.5\textwidth}{fig/adapter.png}{Adapter}{adapter}
+Ausgangslage: Man hat eine existierende Klasse, die Schnittstelle ist aber unpassend. Nun macht man eine abstrakte Zielschnittstelle (vgl. Abb. \ref{fig:adapter} - Klasse \texttt{Ziel}) und leitet von dieser den Adapter ab, welche dann die eigentliche Operation aufruft bei der existierenden Klasse. Dem Client weiss dabei nur, dass es eine Zielschnittstelle gibt.
+
+\subsubsection{Fabrikmethode (Erzeugungsmuster)}
+Grunsätzlich abstrahiert die Fabrikmethode das Erstellen eines Objektes. Die Erstellung des Objektes passiert also via ein Interface, und die implementierenden Objekte des Interfaces entscheiden dann, wie genau und was für ein Objekt implementiert wird. \\
+\textbf{Vorteile}
+\begin{itemize}
+  \item \textbf{Entkapselung Objekterzeugung} \\
+  Kann hilfreich sein beim weiterentwickeln von Software-Bibliotheken. Zudem können Objekte von verschiedenen Klassen mit derselben Factory erstellt werden.
+  \item \textbf{Bessere Semantik des Konstruktors} \\
+  Der Name des Konstruktors ist häufig vorgegeben, die einer Methode natürlich nicht. Also können viel aussagekräftigere oder diversere Methoden definiert werden, um ein Objekt zu erzeugen. Als Beispiel \texttt{Color.createFromRGB(...)} und \texttt{Color.createFromHSV(...)}.
+\end{itemize}
+\textbf{Nachteile}
+\begin{itemize}
+  \item \textbf{Starke Kopplung Konkreter Erzeuger und konkretes Produkt} \\
+  Für jedes neue konkrete Produkt braucht es also einen neuen konreten Erzeuger.
+\end{itemize}
+
+
+\mygraphics{0.5\textwidth}{fig/factory.png}{Fabrikmethode}{factory}
+
+\subsubsection{Prototyp (Erzeugungsmuster)} 
+Wenn ein gewisses Objekt bereits vorhanden ist und man mag dieses Objekt so sehr, dass man gerne noch ein zweites oder ein hundertes davon möchte, dann kann man zur Erzeugung das Prototyp-Muster anwenden. Es sieht in UML folgendermassen aus:
+
+\mygraphics{0.5\textwidth}{fig/prototype.png}{Prototyp}{prototype}
+
+Die zu klonenden Objekte leiten einfach von einer abstrakten Basisklasse ab, welche eine Methode \texttt{clone()} beinhaltet und liefert dann eine Kopie seiner selbst zurück. Wenn es dabei noch auf andere Objekte referenziert, kann es die auch nochmals kopieren und dann zurückliefern (sog.\emph{deep cloning}). Oder es belässt die Referenzen so wie sie sind (\emph{shallow cloning}).
+
+\textbf{Vorteile}
+\begin{itemize}
+  \item Keine Subklasse je Objekt benötigt, welches man erstellen möchte (wie beim Factory-Pattern notwendig)
+  \item Effizienter als das Objekt mit \texttt{new Object()} von Hand zu erstellen.
+\end{itemize}
+
+\textbf{Nachteile}
+\begin{itemize}
+  \item Die Erstellung einer Kopie eines Objektes kann aufwendig sein.
+  \item Jede Unterklasse muss die Kopie-Operation implementieren. 
+  \item Eventuelle Initialisierungen des kopierten Objekts müssen zusätzlich erfolgen.
+\end{itemize}
+
+
+\subsubsection{Observer (Verhaltensmuster)}
+\mygraphics{0.5\textwidth}{fig/observer.png}{Observer Pattern}{observer}
+
+Wir haben z.B. ein Programm, welches im Model die Daten ändert. Das GUI soll diese Daten dann anzeigen. Das GUI ist nun ein \emph{Konkreter Beobachter} und meldet sich als solcher beim \emph{Subjekt}, dem Model an.
+
+Wenn es nun Änderungen im Model gegeben hat, meldet dies das Subjekt allen angemeldeten Beobachtern über z.B. die in der Abbildung \ref{fig:observer} gezeigte Methode \texttt{aktualisiere()}.
+
+
 \subsection{Sie können die oben genannten Patterns in Java in entsprechend angepasster Form implementieren und sind sich der Unterschiede zu den originalen Designs im Klaren}
+
+\subsubsection{Observer}
+Java hat das als Event/Listener Modell umgesetzt. Aber in Java ist man nicht Beobachter einer ganzen Klasse, sondern eines bestimmten Events, z.B. dem Schliessen eines Fensters. Deswegen haben wir in Java Methoden wie \texttt{addWindowClosingListener(ActionListener listener)}. Die Eventquelle (z.B. die GUI Klasse) verwaltet dann diese Beobachte und bietet die Schnittstellen zur De/Registrierung an. 
+\subsubsection{Unterschied zum originalen Design}
+In Java hat man Interfaces, deswegen können die Abstrakten Klasse Beobachter und Subjekt gegen Interfaces augestauscht werden. Dies ermöglicht ein besseres Design.
+
+Anmerk. des Autors: Was gibts da noch mehr? UML Klassen sind ja vorhanden, diese mit Code auszufüllen und da CopyPaste... bringts das?
+
 \subsection{Sie wissen worauf man beim Einsatz von Patterns in der Praxis achten sollte}
+Um die Entwurfsmuster richtig einsetzten zu können, muss man sie zuerst richtig gut kennen. Dann unbedingt sinnvoll und überlegt einsetzen. Denn ein Entwurfsmuster ist keine ultimative Generallösung und besser man setzt kein Entwurfsmuster ein, als das falsche.
+\subsubsection{Auswahl des richtigen Entwurfsmusters}
+\begin{itemize}
+  \item \textbf{Kategorie wählen} \\
+  Geht es um Erezugung, Struktur oder Verhalten? Da fallen schon einige weg, wenn dies klar ist.
+  \item \textbf{Vor- und Nachteile abwägen} \\
+  Aus den Vor- und Nachteilen das beste Entwurfsmuster auswählen, bei Zweifeln das, welches am meisten Flexibilität bietet.
+  \item \textbf{Mit Beispielen arbeiten} \\
+  Bietet das Entwurfsmuster tatsächlich die erhofften Vorteile?
+  \item \textbf{Variieren!} \\
+  Wie gesagt sind Entwurfsmuster keine Generallösungen, sondern ein Konzept, das je nach Umgebung auch \emph{wohlüberlegt} angepasst / optimiert wird. Vorsicht dabei, sonst wird evt. die Grundidee des Musters zerstört!
+  \item \textbf{Kombinieren} \\
+  Muster lassen sich natürlich untereinander kombinieren, um die effizienteste Lösung zu erreichen. 
+\end{itemize}
+
 \subsection{Sie kennen die wichtigen Aspekte des Deployments von Software}
+\subsubsection{Organisation des Deployments}
+Die grundsätzliche Planung eines (evt komplexeren als hier abgebildeten) Deployments kann natürlich mit UML geschehen.
+\mygraphics{0.6\textwidth}{fig/deployment_uml.png}{UML Deployment Diagramm}{deployment_uml}
+
+Der \emph{Node} stellt dabei einen Computer / Server / Hardware dar. Das \emph{Artifact} die konkret ausführbare Datei, welche auf dem \emph{Node} installiert (und ausgeführt) wird.
+
+\mygraphics{0.3\textwidth}{fig/artefakt.png}{UML Diagramm Artefakt}{artefact_uml}
+
+Das \emph{artifact} kann noch genauer spezifiert werden - welche Konfigurationsdateien / Abhängigkeiten sind da noch mit dabei? Um die Verbindung zum restlichen UML Diagramm herzustellen (Komponenten / Klassen und so) gibt es die \emph{manifest}-Beziehung (siehe Abbildung \ref{fig:manifest_uml}). Diese gibt an, welche Komponente das Artefakt beinhaltet.
+\mygraphics{0.3\textwidth}{fig/manifest.png}{UML Diagramm Manifest}{manifest_uml}
+
+\subsubsection{Verteilung}
+Programmcode kommt selten allein. Für die Verteilung braucht es noch Installations- und Deinstallationsprograme, Default und Beispielkonfiguration, ein Installationsmedium (CD? Internet? USB-Stick?).
+Die Verteilung kann auch vollständig automatisiert sein, z.B. via Java Web Start (anm. des Autors: oder einem Chef/Puppet Rezept).
+\subsubsection{Installation}
+Die Installation soll möglichst automatisert sein (also auch reproduzierbar). Dabei gibt es verschiedene Bedürfnisse - der Desktop User will ein hübsches GUI, der Server Admin eher ein automatiserbares Skript und der Entwickler / Tester braucht wieder etwas spezielles. Zudem ist je nach Umgebung eine andere Reihenfolge nötig (z.B. Windows muss zuerst eine Cygwin Umgebung installiert werden etc). 
+
+Ach und die Deinstallation nicht vergessen, ja?
+\subsubsection{Konfiguration}
+So wenig wie möglich, so viel wie nötig! Sollte mit der Standardkonfiguration lauffähig sein, aber Anpassungen sollen dann schon gemacht werden können. z.B. Anbindung an LDAP oder Logging / Monitoring System, MySQL / PostgreSQL verwenden können, etc.
+
+\subsubsection{Konfigurationsmanagement}
+Welche Softwareversion läuft beim Kunden XY? Kann er reibungslos auf die neuste Version updaten? Wurde das getestet? Was hat er für Umsysteme? Auf was läuft denn die Software? Welche Versionen von unserer Software laufen mit welchen Versionen? ... siehe Abschnitt \ref{sec:konfigurationsmanagement}.
+\subsubsection{Release Notes}
+Release-Notes anzeigen bei einem Releasewechsel mit übersicht über geänderten Funktionsumfang / Vorbedingungen / Dateiformate. Dies muss meist manuell gemacht werden, da es eine qualitative Aussage über die Entwicklungsgeschichte ist. Vielleicht auch direkt Bezug auf Change-Requests / Bugs machen. Hilft den Anwendern abzuschätzen, ob sich ein Wechsel auf die neuste Version lohnt.
+
+\subsubsection{Erwartungen}
+Einfach nichts versprechen, was nicht gehalten werden kann! Kunde gibt sonst eine negative Rückmeldung! Bei der Kommunikation klar machen, was ist bei dem Release dabei und dies auch konsistent. Beim Deployment aber immer auch Suppport bieten - Murphys Law.
+
 \subsection{Sie sind in der Lage ein Deployment adressatengerecht durchzuführen}
+Ja klar.
+--- Infos dazu?
 \subsection{Sie beherrschen das dreistellige Versionskonzept (Semantic Versioning)}
+\begin{itemize}
+  \item \textbf{Major Release} (\textbf{X}.x.x)\\
+  API oder fachliche Funktion hat sich verändert, Konfiguration nicht mehr kompatibel zu früheren Versionen - Anpassungen sind nötig.
+  \item \textbf{Minor Release} (x.\textbf{X}.x)\\
+  API oder fachliche Funktion hat sich erweitert, Konfiguration immer noch kompatibel zu früheren Funktionen - keine Anpassungen nötig.
+  \item \textbf{Bugfix Release} (x.x.\textbf{X})\\
+  Keine Veränderung am Funktionsumfang / API. Lediglich Verbesserungen von bestehendem. Direkter Einstatz möglich.
+  
+\end{itemize}
+
 \subsection{Sie kennen die Motivation von Clean Code}
+\begin{itemize}
+  \item \textbf{Die Erosion von Code verlangsamen} \\
+   Verhindern kann auch Clean Code sie zwar nicht, denn nach ca. 10 Jahren ist sowieso jede Software hoffnungslos überfüllt. 
+   \item \textbf{}
+\end{itemize}
+
 \subsection{Sie können die Ergebnisse von Werkzeugen zur Messung der Code Qualität (z.B. Checkstyle, PMD etc.) sinnvoll interpretieren und nutzen}
 \subsection{Sie kennen die Kriterien von Clean Code bezüglich der Implementation von guten Testfällen}
 \subsection{Sie kennen die Kriterien von Clean Code zur Implementation von guten Methoden}
