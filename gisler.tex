@@ -2,6 +2,7 @@
 \label{sec:gisler}
 
 \subsection{Sie kennen die grundlegenden Aufgaben eines Versionskontrollsystems (VCS) und können damit arbeiten}
+
 \subsection{Sie wissen was ein automatisierter Buildprozess ist und kennen seine Vorteile}
 
 Alle Tätigkeiten (Kompilieren, Testen, Packen usw.) des Buildprozesses werden automatisch ausgeführt. Durch die Automatisierung ergeben sich folgende Vorteile:
@@ -36,7 +37,7 @@ Ein Buildserver ist eine Software die Quellcode automatisch buildet und die Resu
 
 \subsubsection{Unittest}
 
-Schneller und automatisierter Test von kleinen Einheiten (z.B. Klasse). Es wird nur die Klasse und ohne ihre Abhängigkeiten getestet! Unittests werden während der Entwicklung meist mit Frameworks (z.B. JUnit, Mockito) erstellt und sind in die IDE integriert.
+Schneller und automatisierter Test von kleinen Einheiten (z.B. Klasse). Es wird nur die Klasse und ohne ihre Abhängigkeiten getestet! Unittests werden während der Entwicklung meist mit Frameworks (z.B. JUnit, Mockito) erstellt und sind in die IDE integriert. (Liebe Grüsse an Roger Diehl: Nein, Unit Tests brauchen keine Integrationsumgebung mit Netzwerk und so obwohl vor 20 Jahren gabs auch noch keine Unit Tests...).
 
 \subsubsection{Integrationstest}
 
@@ -44,10 +45,7 @@ Integrationstests werden durchgeführt wenn eine neue Komponente in eine bestehe
 
 \subsubsection{Systemtest}
 
-Bei den Systemtest wird das ganze System mittels einer Spezifikation getestet. Hier wird eher der Benutzeraspekt getestet (z.B. Usability).
-
-Integrations- und Systemtests müssen explizit in einer Phase geplant, organisiert und durchgeführt werden (klassisches Testen)
-
+Bei den Systemtest wird das ganze System mittels einer Spezifikation getestet. Hier wird eher der Benutzeraspekt getestet (z.B. Usability). Integrations- und Systemtests müssen explizit in einer Phase geplant, organisiert und durchgeführt werden (klassisches Testen)
 
 \subsection{Sie beherrschen die Entwicklung nach dem Test First Prinzip}
 
@@ -67,7 +65,6 @@ Beim Fehlschlagen eines Testfalls kann so einfach nachgeforscht werden, welche C
 
 \subsection{Sie haben einen Überblick über die Designpatterns nach GoF und kennen die verschiedenen Kategorien}
 
-
 Entwurfsmuster können nach folgenden Gruppen eingeteilt werden:
 \begin{itemize}
   \item \textbf{Erzeugungsmuster} \\
@@ -79,99 +76,68 @@ Entwurfsmuster können nach folgenden Gruppen eingeteilt werden:
   
 \end{itemize}
 
+\newpage
+
 \subsection{Sie können die Patterns Singleton, Strategy, Fassade, Adapter, Fabrikmethode, Prototyp und Observer erklären und sinnvoll anwenden}
 \label{sec:patterns}
 
 \subsubsection{Singleton (Erzeugungsmuster)}
-Stellt sicher, dass von einer Klasse immer nur genau ein Objekt vorhanden ist, mittels einem privaten Konstruktor und einer \texttt{getInstance()}-Methode. Sparsam einsetzen, sonst enstehen sternförmige Abhängigkeiten zur Singletonklasse.
-    Siehe Abbildung \ref{fig:Singleton}.
-    \mygraphics{0.5\textwidth}{fig/singleton.png}{Singleton}{Singleton}
+Stellt sicher, dass von einer Klasse immer nur genau ein Objekt vorhanden ist. Deshalb hat ein Singleton einen privaten Konstruktor und die Klasse ist final deklariert. Eine statische Methode \texttt{getInstance()} liefert immer die selbe Objekt zurück. Singleton sollten sparsam eingesetzt werden, weil sternförmige Abhängigkeiten entstehen und sie schlecht testbar sind. Abbildung \ref{fig:singleton} zeigt einen Singleton in UML.
+    
+\mygraphics{0.5\textwidth}{fig/singleton.png}{Singleton}{singleton}
 
-\subsubsection{Strategy (Verhaltensmuster)}\label{sec:strategypattern}
- Die Lösung für \texttt{switch() case:} Statements oder wenn unterschiedliches Verhalten erriecht werden soll. 
-      \mygraphics{0.5\textwidth}{fig/strategy.png}{Strategy}{strategy}
-      Der Client muss allerdings alle Implementationen kennen und initialisiert den Kontext mit einer konkreten Implementation. Der Client ruft daraufhin einfach die \texttt{sortiere()}-Methode des Kontexts auf, um die Sortierung zu starten. Wenn ein anderer Algorithmus verwendet werden soll, so wird dem Kontext einfach eine andere Instanz des Algorithmus übergeben.
+\subsubsection{Strategy (Verhaltensmuster)}
+\label{sec:strategypattern}
+Kann als bessere Alternative für \texttt{switch}-Statements oder wenn unterschiedliches Verhalten erreicht werden sollen verwendet werden. Der Client muss allerdings alle Implementationen kennen und initialisiert den Kontext mit einer konkreten Implementation. Der Client ruft daraufhin einfach die \texttt{sortiere()}-Methode des Kontexts auf, um die Sortierung zu starten. Wenn ein anderer Algorithmus verwendet werden soll, so wird dem Kontext einfach eine andere Instanz des Algorithmus übergeben.
+
+\mygraphics{0.5\textwidth}{fig/strategy.png}{Strategy}{strategy}
+
+\newpage
 
 \subsubsection{Fassade (Strukturmuster)}
-Stellt eine Zusammenfassung für mehrere Schnittstellen eines Subsystems dar. Die Facade weiss dann, welche Subklassen für was genau zuständig sind und delegiert die Anfragen entsprechend. \\
-    \textbf{Vorteile:}
-    \begin{itemize}
-        \item Einfachere Verwendung des Subsystems
-        \item Separation of Concerns
-        \item Unabhängige Entwicklung
-        \item Austauschbarkeit der Subsysteme da gerine Abhängigkeit untereinander
-        \item Unterklassen haben keine Kopplung
-    \end{itemize}
-    \textbf{Nachteile:} \\
-    \begin{itemize}
-        \item Delegation ist notwendig
-        \item Gefahr eines reinen Durchlauferhitzers
-    \end{itemize}
-    Siehe Abbildung \ref{fig:Facade}.
-    \mygraphics{0.5\textwidth}{fig/facade.png}{Facade}{Facade}
+Stellt eine Zusammenfassung für mehrere Schnittstellen eines Subsystems dar. Die Fassade weiss dann, welche Subklassen für was genau zuständig sind und delegiert die Anfragen entsprechend. Die Subsysteme können einfach ausgetauscht werden, weil keine Kopplung zwischen ihnen entsteht. Abbildung \ref{fig:fassade} zeigt die Fassade als UML dargestellt.
+
+\mygraphics{0.5\textwidth}{fig/facade.png}{Fassade}{fassade}
 
 \subsubsection{Adapter (Strukturmuster)}
+Ausgangslage: Man hat eine existierende Klasse, die Schnittstelle ist aber unpassend. Nun macht man eine Zielschnittstelle (vgl. Abb. \ref{fig:adapter} - Interface \texttt{Ziel}) und leitet von dieser den Adapter ab, welche dann die eigentliche Operation aufruft bei der existierenden Klasse. Dem Client weiss dabei nur, dass es eine Zielschnittstelle gibt.
+
 \mygraphics{0.5\textwidth}{fig/adapter.png}{Adapter}{adapter}
-Ausgangslage: Man hat eine existierende Klasse, die Schnittstelle ist aber unpassend. Nun macht man eine abstrakte Zielschnittstelle (vgl. Abb. \ref{fig:adapter} - Klasse \texttt{Ziel}) und leitet von dieser den Adapter ab, welche dann die eigentliche Operation aufruft bei der existierenden Klasse. Dem Client weiss dabei nur, dass es eine Zielschnittstelle gibt.
+
+\newpage
 
 \subsubsection{Fabrikmethode (Erzeugungsmuster)}
-Grunsätzlich abstrahiert die Fabrikmethode das Erstellen eines Objektes. Die Erstellung des Objektes passiert also via ein Interface, und die implementierenden Objekte des Interfaces entscheiden dann, wie genau und was für ein Objekt implementiert wird. \\
-\textbf{Vorteile}
-\begin{itemize}
-  \item \textbf{Entkapselung Objekterzeugung} \\
-  Kann hilfreich sein beim weiterentwickeln von Software-Bibliotheken. Zudem können Objekte von verschiedenen Klassen mit derselben Factory erstellt werden.
-  \item \textbf{Bessere Semantik des Konstruktors} \\
-  Der Name des Konstruktors ist häufig vorgegeben, die einer Methode natürlich nicht. Also können viel aussagekräftigere oder diversere Methoden definiert werden, um ein Objekt zu erzeugen. Als Beispiel \texttt{Color.createFromRGB(...)} und \texttt{Color.createFromHSV(...)}.
-\end{itemize}
-\textbf{Nachteile}
-\begin{itemize}
-  \item \textbf{Starke Kopplung Konkreter Erzeuger und konkretes Produkt} \\
-  Für jedes neue konkrete Produkt braucht es also einen neuen konreten Erzeuger.
-\end{itemize}
-
+Die Fabrikmethode delegiert die Erstellung von Objekten an eine Unterklasse. Dadurch ist es möglich das eine Klasse ihre Objekte noch nicht kennt und von der Unterklasse zugewiesen bekommt. In der abstrakten Klasse \texttt{Erzeuger} wird eine \texttt{fabrikmethode()} definiert, die als Rückgabewert ein Interface \texttt{Produkt} liefert. Der \texttt{KonrkreteErzeuger} implementiert die \texttt{fabrikmethode()} und liefert ein \texttt{KonkretesProdukt} zurück. Dieses Entwurfsmuster hat eine starke Kopplung zwischen Erzeuger und Produkt zur Folge (für neues Produkt auch neuer Erzeuger). Abbildung \ref{fig:factory} zeigt die Fabrikmethode als UML dargestellt.
 
 \mygraphics{0.5\textwidth}{fig/factory.png}{Fabrikmethode}{factory}
 
 \subsubsection{Prototyp (Erzeugungsmuster)} 
-Wenn ein gewisses Objekt bereits vorhanden ist und man mag dieses Objekt so sehr, dass man gerne noch ein zweites oder ein hundertes davon möchte, dann kann man zur Erzeugung das Prototyp-Muster anwenden. Es sieht in UML folgendermassen aus:
+Wenn ein gewisses Objekt bereits vorhanden ist und man mag dieses Objekt so sehr, dass man gerne noch ein zweites oder ein hundertes davon möchte, kann man zur Erzeugung das Prototyp-Muster anwenden. 
+Die zu klonenden Objekte leiten einfach von einer abstrakten Basisklasse ab, welche eine Methode \texttt{clone()} beinhaltet und liefert dann eine Kopie seiner selbst zurück. Wenn es dabei noch auf andere Objekte referenziert, kann es die auch nochmals kopieren und dann zurückliefern (sog.\emph{deep cloning}). Oder es belässt die Referenzen so wie sie sind (\emph{shallow cloning}). Es sieht in UML folgendermassen aus:
 
 \mygraphics{0.5\textwidth}{fig/prototype.png}{Prototyp}{prototype}
 
-Die zu klonenden Objekte leiten einfach von einer abstrakten Basisklasse ab, welche eine Methode \texttt{clone()} beinhaltet und liefert dann eine Kopie seiner selbst zurück. Wenn es dabei noch auf andere Objekte referenziert, kann es die auch nochmals kopieren und dann zurückliefern (sog.\emph{deep cloning}). Oder es belässt die Referenzen so wie sie sind (\emph{shallow cloning}).
-
-\textbf{Vorteile}
-\begin{itemize}
-  \item Keine Subklasse je Objekt benötigt, welches man erstellen möchte (wie beim Factory-Pattern notwendig)
-  \item Effizienter als das Objekt mit \texttt{new Object()} von Hand zu erstellen.
-\end{itemize}
-
-\textbf{Nachteile}
-\begin{itemize}
-  \item Die Erstellung einer Kopie eines Objektes kann aufwendig sein.
-  \item Jede Unterklasse muss die Kopie-Operation implementieren. 
-  \item Eventuelle Initialisierungen des kopierten Objekts müssen zusätzlich erfolgen.
-\end{itemize}
-
+\newpage
 
 \subsubsection{Observer (Verhaltensmuster)}
-\mygraphics{0.5\textwidth}{fig/observer.png}{Observer Pattern}{observer}
-
 Wir haben z.B. ein Programm, welches im Model die Daten ändert. Das GUI soll diese Daten dann anzeigen. Das GUI ist nun ein \emph{Konkreter Beobachter} und meldet sich als solcher beim \emph{Subjekt}, dem Model an.
 
 Wenn es nun Änderungen im Model gegeben hat, meldet dies das Subjekt allen angemeldeten Beobachtern über z.B. die in der Abbildung \ref{fig:observer} gezeigte Methode \texttt{aktualisiere()}.
 
+\mygraphics{0.5\textwidth}{fig/observer.png}{Observer Pattern}{observer}
+
 
 \subsection{Sie können die oben genannten Patterns in Java in entsprechend angepasster Form implementieren und sind sich der Unterschiede zu den originalen Designs im Klaren}
 
-\subsubsection{Observer}
-Java hat das als Event/Listener Modell umgesetzt. Aber in Java ist man nicht Beobachter einer ganzen Klasse, sondern eines bestimmten Events, z.B. dem Schliessen eines Fensters. Deswegen haben wir in Java Methoden wie \texttt{addWindowClosingListener(ActionListener listener)}. Die Eventquelle (z.B. die GUI Klasse) verwaltet dann diese Beobachte und bietet die Schnittstellen zur De/Registrierung an. 
 \subsubsection{Unterschied zum originalen Design}
-In Java hat man Interfaces, deswegen können die Abstrakten Klasse Beobachter und Subjekt gegen Interfaces augestauscht werden. Dies ermöglicht ein besseres Design.
+In Java sollten die abstrakten Klassen im originalen Design durch Interfaces ausgetauscht werden.
 
-Anmerk. des Autors: Was gibts da noch mehr? UML Klassen sind ja vorhanden, diese mit Code auszufüllen und da CopyPaste... bringts das?
+\subsubsection{Observer}
+Java hat das Oberserver-Pattern als Event/Listener Modell umgesetzt. Aber in Java ist man nicht Beobachter einer ganzen Klasse, sondern eines bestimmten Events, z.B. dem Schliessen eines Fensters. Deswegen haben wir in Java Methoden wie \texttt{addWindowClosingListener(ActionListener listener)}. Die Eventquelle (z.B. die GUI Klasse) verwaltet diese Beobachter und bietet die Schnittstellen zur De/Registrierung an.
 
 \subsection{Sie wissen worauf man beim Einsatz von Patterns in der Praxis achten sollte}
-Um die Entwurfsmuster richtig einsetzten zu können, muss man sie zuerst richtig gut kennen. Dann unbedingt sinnvoll und überlegt einsetzen. Denn ein Entwurfsmuster ist keine ultimative Generallösung und besser man setzt kein Entwurfsmuster ein, als das falsche.
+Um die Entwurfsmuster richtig einsetzten zu können, muss man sie zuerst richtig gut kennen. Dann unbedingt sinnvoll und überlegt einsetzen. Denn ein Entwurfsmuster ist keine ultimative Generallösung. Man setzt besser kein Entwurfsmuster ein, als das Falsche.
+
 \subsubsection{Auswahl des richtigen Entwurfsmusters}
 \begin{itemize}
   \item \textbf{Kategorie wählen} \\
@@ -181,44 +147,43 @@ Um die Entwurfsmuster richtig einsetzten zu können, muss man sie zuerst richtig
   \item \textbf{Mit Beispielen arbeiten} \\
   Bietet das Entwurfsmuster tatsächlich die erhofften Vorteile?
   \item \textbf{Variieren!} \\
-  Wie gesagt sind Entwurfsmuster keine Generallösungen, sondern ein Konzept, das je nach Umgebung auch \emph{wohlüberlegt} angepasst / optimiert wird. Vorsicht dabei, sonst wird evt. die Grundidee des Musters zerstört!
+  Wie gesagt sind Entwurfsmuster keine Generallösungen, sondern ein Konzept, das je nach Umgebung auch \emph{wohlüberlegt} angepasst/optimiert wird. Vorsicht dabei, sonst wird evt. die Grundidee des Musters zerstört!
   \item \textbf{Kombinieren} \\
   Muster lassen sich natürlich untereinander kombinieren, um die effizienteste Lösung zu erreichen. 
 \end{itemize}
 
 \subsection{Sie kennen die wichtigen Aspekte des Deployments von Software}
+
 \subsubsection{Organisation des Deployments}
-Die grundsätzliche Planung eines (evt komplexeren als hier abgebildeten) Deployments kann natürlich mit UML geschehen.
+Die grundsätzliche Planung eines (evt. komplexeren als hier abgebildeten) Deployments kann natürlich mit UML geschehen.
+
 \mygraphics{0.6\textwidth}{fig/deployment_uml.png}{UML Deployment Diagramm}{deployment_uml}
 
-Der \emph{Node} stellt dabei einen Computer / Server / Hardware dar. Das \emph{Artifact} die konkret ausführbare Datei, welche auf dem \emph{Node} installiert (und ausgeführt) wird.
-
-\mygraphics{0.3\textwidth}{fig/artefakt.png}{UML Diagramm Artefakt}{artefact_uml}
-
-Das \emph{artifact} kann noch genauer spezifiert werden - welche Konfigurationsdateien / Abhängigkeiten sind da noch mit dabei? Um die Verbindung zum restlichen UML Diagramm herzustellen (Komponenten / Klassen und so) gibt es die \emph{manifest}-Beziehung (siehe Abbildung \ref{fig:manifest_uml}). Diese gibt an, welche Komponente das Artefakt beinhaltet.
-\mygraphics{0.3\textwidth}{fig/manifest.png}{UML Diagramm Manifest}{manifest_uml}
+Der \emph{Node} stellt dabei einen Computer/Server/Hardware dar. Das \emph{Artifact} die konkret ausführbare Datei, welche auf dem \emph{Node} installiert (und ausgeführt) wird. Eine \emph{manifest}-Beziehung verbindet eine Komponente mit einem \emph{Artifact}.
 
 \subsubsection{Verteilung}
-Programmcode kommt selten allein. Für die Verteilung braucht es noch Installations- und Deinstallationsprograme, Default und Beispielkonfiguration, ein Installationsmedium (CD? Internet? USB-Stick?).
-Die Verteilung kann auch vollständig automatisiert sein, z.B. via Java Web Start (anm. des Autors: oder einem Chef/Puppet Rezept).
+Programmcode kommt selten allein. Für die Verteilung braucht es noch Installations- und Deinstallationsprograme, Default- und Beispielkonfiguration, ein Installationsmedium (CD? Internet? USB-Stick?). Die Verteilung kann auch vollständig automatisiert sein, z.B. via Java Web Start (anm. des Autors: oder einem Chef/Puppet Rezept).
+
 \subsubsection{Installation}
-Die Installation soll möglichst automatisert sein (also auch reproduzierbar). Dabei gibt es verschiedene Bedürfnisse - der Desktop User will ein hübsches GUI, der Server Admin eher ein automatiserbares Skript und der Entwickler / Tester braucht wieder etwas spezielles. Zudem ist je nach Umgebung eine andere Reihenfolge nötig (z.B. Windows muss zuerst eine Cygwin Umgebung installiert werden etc). 
+Die Installation soll möglichst automatisiert sein (reproduzierbar). Dabei gibt es verschiedene Bedürfnisse - der Desktop User will ein hübsches GUI, der Server Admin eher ein automatisierbares Skript und der Entwickler/Tester braucht etwas Spezielles. Zudem ist je nach Umgebung eine andere Reihenfolge nötig (z.B. Windows muss zuerst eine Cygwin Umgebung installiert werden etc.). 
 
 Ach und die Deinstallation nicht vergessen, ja?
+
 \subsubsection{Konfiguration}
-So wenig wie möglich, so viel wie nötig! Sollte mit der Standardkonfiguration lauffähig sein, aber Anpassungen sollen dann schon gemacht werden können. z.B. Anbindung an LDAP oder Logging / Monitoring System, MySQL / PostgreSQL verwenden können, etc.
+So wenig wie möglich, so viel wie nötig! Sollte mit der Standardkonfiguration lauffähig sein, aber Anpassungen sollen auch gemacht werden können. z.B. Anbindung an LDAP oder Logging / Monitoring System, MySQL / PostgreSQL verwenden können, etc.
 
 \subsubsection{Konfigurationsmanagement}
 Welche Softwareversion läuft beim Kunden XY? Kann er reibungslos auf die neuste Version updaten? Wurde das getestet? Was hat er für Umsysteme? Auf was läuft denn die Software? Welche Versionen von unserer Software laufen mit welchen Versionen? ... siehe Abschnitt \ref{sec:konfigurationsmanagement}.
+
 \subsubsection{Release Notes}
-Release-Notes anzeigen bei einem Releasewechsel mit übersicht über geänderten Funktionsumfang / Vorbedingungen / Dateiformate. Dies muss meist manuell gemacht werden, da es eine qualitative Aussage über die Entwicklungsgeschichte ist. Vielleicht auch direkt Bezug auf Change-Requests / Bugs machen. Hilft den Anwendern abzuschätzen, ob sich ein Wechsel auf die neuste Version lohnt.
+Release-Notes zeigen bei einem Releasewechsel eine Übersicht über den geänderten Funktionsumfang. Dies muss meist manuell gemacht werden, da es eine qualitative Aussage über die Entwicklungsgeschichte ist. Vielleicht auch direkt Bezug auf Change-Requests/Bugs machen. Hilft den Anwendern abzuschätzen, ob sich ein Wechsel auf die neuste Version lohnt.
 
 \subsubsection{Erwartungen}
-Einfach nichts versprechen, was nicht gehalten werden kann! Kunde gibt sonst eine negative Rückmeldung! Bei der Kommunikation klar machen, was ist bei dem Release dabei und dies auch konsistent. Beim Deployment aber immer auch Suppport bieten - Murphys Law.
+Einfach nichts versprechen, was nicht gehalten werden kann! Kunde gibt sonst eine negative Rückmeldung! Bei der Kommunikation klar machen, was ist bei dem Release dabei und dies auch konsistent. Beim Deployment immer auch Suppport bieten - Murphys Law.
 
 \subsection{Sie sind in der Lage ein Deployment adressatengerecht durchzuführen}
-Ja klar.
---- Infos dazu?
+Ja klar!
+
 \subsection{Sie beherrschen das dreistellige Versionskonzept (Semantic Versioning)}
 \begin{itemize}
   \item \textbf{Major Release} (\textbf{X}.x.x)\\
@@ -244,18 +209,18 @@ Ja klar.
 
 \subsection{Sie können die Ergebnisse von Werkzeugen zur Messung der Code Qualität (z.B. Checkstyle, PMD etc.) sinnvoll interpretieren und nutzen}
 
+Sollte gegen Ende Projekt immer mehr abnehmen und nicht mehr ansteigen.
+
 \subsection{Sie kennen die Kriterien von Clean Code bezüglich der Implementation von guten Testfällen}
+
 \subsubsection{Grundsätze von Unit Tests}
-Ein sauberer = lesbarer Unit-Test ist es dann, wenn er klar, einfach und ausdrucksdicht ist.
-ist. Die Vorgehensweise für einen UnitTest ist die folgende:
+Ein sauberer = lesbarer Unit-Test ist es dann, wenn er klar, einfach und ausdrucksdicht ist. Die Vorgehensweise für einen UnitTest ist die folgende:
 \begin{itemize}
   \item Erstellen der Testdaten (\textbf{A}rrange)
   \item Manipulieren der Testdaten (\textbf{A}ct)
   \item Verifaktion der Ergebnisse (\textbf{A}ssert)
 \end{itemize}
 
-\subsubsection{Definition Unit-Testing}
-Ein Unit-Test ist ein automatisierter Test, welcher eine kleine Einheit eines System aufruft, und dann eine Behauptung macht was passieren soll und dies dann prüft. (Liebe Grüsse an Roger Diehl: Nein, Unit Tests brauchen keine Integrationsumgebung mit Netzwerk und so).
 \subsubsection{Vorsätze für gute Testfälle}
 \begin{itemize}
   \item \textbf{Nur ein \texttt{assert} pro Unittest} \\
@@ -266,44 +231,50 @@ Ein Unit-Test ist ein automatisierter Test, welcher eine kleine Einheit eines Sy
   \begin{itemize}
       \item \textbf{F}ast - schnelle Tests um eine regelmässige Ausführung zu ermöglichen
       \item \textbf{I}ndependent - unabhängige Reihenfolge / Ausführung der Tests
-      \item \textbf{R}epeatable - Tests müssen auf/in jeder Umgebung ausführbar sein.
-      \item \textbf{S}elf-Validating - Die Tests sollen einfach \texttt{success} / \texttt{failure zurückliefern.}
+      \item \textbf{R}epeatable - Tests müssen in jeder Umgebung ausführbar sein.
+      \item \textbf{S}elf-Validating - Die Tests sollen einfach \texttt{success} / \texttt{failure} zurückliefern.
       \item \textbf{T}imely - Tests sollen vor dem eigentlichen Code geschrieben werden -> Test First!
   \end{itemize}
   \item \textbf{Möglichst viel Testen} \\
-  Klar oder? Einfach alle Bedingungen / Varianten / Berechnugnen möglichst testen. Immer nach dem Aufwand abschätzen, aber sollte ein gutes Ziel sein.
+  Klar oder? Einfach alle Bedingungen/Varianten/Berechnungen möglichst testen. Immer nach dem Aufwand abschätzen.
   \item \textbf{Code Coverage Werkzeuge verwenden} \\
   Diese zeigen auf, welche Zeilen ausgeführt wurden und welche nicht - hilft bei der Fehlersuche.
   \item \textbf{Triviale Tests auch machen} \\
   Ja, auch getter und setter.
-  \item \textbf{Tests nicht igonrieren / auskommentieren} \\
-  Denn dies ist ein Warnsignal und man sollte doch kurz die Anforderungen checken.
+  \item \textbf{Tests nicht ignorieren / auskommentieren} \\
+  Denn dies ist ein Warnsignal und man sollte kurz die Anforderungen/Programmcode checken.
   \item \textbf{Grenzbedingungen} \\
-  Das sind doch die interessantesten Fälle - man denke an eine Addition - was passiert bei einem Überlauf?
+  Das sind die interessantesten Fälle - man denke an eine Addition - was passiert bei einem Überlauf?
   \item \textbf{Ein Fehler kommt selten allein} \\
-  Funktion des Fehlers ausgiebig testen - evt ganzer Rattenschwanz an Fehlern - Murphys Law hasst uns alle.
+  Funktion des Fehlers ausgiebig testen - evt. ganzer Rattenschwanz an Fehlern - Murphys Law hasst uns alle.
   \item \textbf{Muster der Ergebnisse von Tests zur Diagnose nutzen} \\
   Klar oder?
 \end{itemize}
 
-
 \subsection{Sie kennen die Kriterien von Clean Code zur Implementation von guten Methoden}
+
 \subsubsection{Funktionen klein halten}
 Macht sie einzeln viel verständlicher. Häuft die Anzahl von Funktionen und Klassen, was wiederum die Testbarkeit wahnsinnig vereinfacht. Auf gar keinen Fall eine Funktion in Abschnitte unterteilen - lieber 2 oder mehr Funktionen draus machen.
-In Zahlen ausgedrückt - am Besten so um 20 Zeilen - max. 100. Maximal 150 Zeichen breit. Und keine unübersichtlichen Verschachtelungen! Max 2 Ebenen.
+In Zahlen ausgedrückt - am Besten so um 20 Zeilen - max. 100. Maximal 150 Zeichen breit. Und keine unübersichtlichen Verschachtlungen! Max 2 Ebenen.
+
 \subsubsection{Pro Funktion nur eine Aufgabe}
-Eine Funktion soll nur etwas machen.  Und ihr Name sollte möglichst präzise genau das vermitteln . Der Trick dabei: das Wörtchen \emph{to} verwenden.  
+Eine Funktion soll nur etwas machen.  Und ihr Name sollte möglichst präzise genau das vermitteln. Der Trick dabei: das Wörtchen \emph{to} verwenden.  
 Nebeneffekte werden so ebenfalls vermieden - eine Passwortcheck-Funktion soll nicht noch eine Session-Initialisierung enthalten. 
-Unter diesem Aspekt fallen auch Anweisungen / Abfragen - eine Funktion die ein Name einfügt, soll nicht noch einen \texttt{false}-Wert zurückgeben, wenn der Name bereits existiert. Besser trennen in eine Abfragefunktion und eine Zuweisungsfunktion. 
+Unter diesem Aspekt fallen auch Anweisungen/Abfragen - eine Funktion die ein Name einfügt, soll nicht noch einen \texttt{false}-Wert zurückgeben, wenn der Name bereits existiert. Besser trennen in eine Abfragefunktion und eine Zuweisungsfunktion. 
 Wenn Fehler in einer Funktion aufreten - Exception werfen! Ansonsten wird der Rückgabewert nochmals ausgewertet werden und wird womöglich noch falsch interpretiert.
 Eine Fehlerbehandlung ist übrigens auch eine Aufgabe, das heisst es gibt Funktionen die nur das machen.
+
 \subsubsection{Nur eine Abstraktionsebene pro Funktion}
 Also nicht grosse Funktionen wie \texttt{doMagic()} und eine Zeile später \texttt{System.out.println("Wert von Variable x: " + x)}.
+
 \subsubsection{Keine switch - Anweisungen}
-Die Funktion wird zu gross und verletzt die "Nur eine Aufgabe" Regel. Besser ein Switch durch polymorphe Konstrukte ersetzen. Siehe Abschnitt \ref{sec:strategypattern} - Strategy Pattern).
+Die Funktion wird zu gross und verletzt die "Nur eine Aufgabe" Regel. Besser ein Switch durch polymorphe Konstrukte ersetzen (Abschnitt \ref{sec:strategypattern} - Strategy Pattern).
+
 \subsubsection{Anzahl der Funktionsargumente minimieren}
 Absolut maximal 3. Bereits ab 2 eine Gefahr der Verwechslung da. Dies erreicht man, indem man kleinere Klassen macht. Beispiel: \texttt{addiere(num1,num2)} wird zu \texttt{num1.addiere(num2)}. Ebenfalls keine Flags als Argumente machen (z.B. \texttt{writeFile(file, true)}). Lieber zwei Funktionen!
+
 \subsubsection{Output-Argumente vermeiden}
 Argumente sollen nur als Input für eine Funktionen dienen, an den übergebenen Objekten soll nichts verändert werden.
+
 \subsubsection{Tote Funktionen löschen}
 Wird eine Funktion nie aufgerufen - weg damit. Wenn sie wieder benötigt wird, hat man ja alles im VCS.
