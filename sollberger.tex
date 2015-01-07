@@ -50,7 +50,7 @@ Bei der RPC Kommunikation können Fehler auftreten (Client/Server fällt aus, Na
 
 \subsubsection{Remote Methode Invocation (RMI)}
 
-RMI ist RPC in Java. Die Schnittstelle werden mit Java Interfaces beschrieben welche das \verb|Remote|-Interface implementieren. Jede Methode der Schnittstelle kann eine \verb|RemoteException| werfen. Beim RMI Namensdienst (\verb|rmiregistry.exe|) werden die Schnittstellen registriert (RMI binding) und können dort vom Client nachgeschlagen werden. Listing \ref{lst:rmi} zeigt den Vorgang des Registrierens und Nachschlagen.
+RMI ist RPC in Java. Die Schnittstelle werden mit Java Interfaces beschrieben welche das \texttt{Remote}-Interface implementieren. Jede Methode der Schnittstelle kann eine \texttt{RemoteException} werfen. Beim RMI Namensdienst (\texttt{rmiregistry.exe}) werden die Schnittstellen registriert (RMI binding) und können dort vom Client nachgeschlagen werden. Listing \ref{lst:rmi} zeigt den Vorgang des Registrierens und Nachschlagen.
 
 \begin{lstlisting}[caption={RMI Binding},label=lst:rmi]
 /**
@@ -110,7 +110,7 @@ Die oben beschriebenen Objekte können über den \ac{ORB} aufgerufen werden. Abb
 
 Die einzelnen Teilsysteme werden anhand eines simplen Beispieles erklärt. Die Client-Anwendung ruft am \emph{IDL stub} eine Methode auf. Dieser Stub hat der Client vorher als Referenz vom Naming Service erhalten. Der Stub verhält sich auch wie ein lokales Objekt, der Programmierer merkt deshalb nichts von der darunterliegenden Kommunikation. Wenn die Methode aufgerufen wurde verpackt (marshalling) der \emph{IDL stub} alle Daten des Methodenaufrufes in eine Nachricht und übergibt diese an den \ac{ORB}. Die Nachricht wird über den \ac{ORB} an den Server übertragen und dem \emph{Object Adapter} übergeben. Der \emph{Object Adapter} aktiviert das CORBA Objekt und gibt ihn an den \emph{IDL skeleton} weiter. Das \emph{IDL skeleton} ist der Server-Stub in CORBA. Er packt die Nachricht aus und die entsprechende Methode wird am \emph{servant object} aufgerufen.
 
-Listing \ref{lst:corba} zeigt wie ein CORBA-Server/Client in Java aussehen kann. In Java wurde nur der \ac{ORB}, der \ac{POA} und der Naming Service implementiert. Es wird zudem ein Compiler (\verb|idlj.exe|) für die \ac{IDL} und ein \ac{ORB}-Dienst (\verb|orbd.exe|) mitgeliefert.
+Listing \ref{lst:corba} zeigt wie ein CORBA-Server/Client in Java aussehen kann. In Java wurde nur der \ac{ORB}, der \ac{POA} und der Naming Service implementiert. Es wird zudem ein Compiler (\texttt{idlj.exe}) für die \ac{IDL} und ein \ac{ORB}-Dienst (\texttt{orbd.exe}) mitgeliefert.
 
 \begin{lstlisting}[caption={CORBA in Java}, label=lst:corba]
 /**

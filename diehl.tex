@@ -8,8 +8,8 @@
 \subsection{Sie wissen wie ein Java Thread implementiert werden kann}
 
 \begin{enumerate}
-	\item Von Klasse \verb|Thread| ableiten
-	\item \verb|Runnable|-Interface implementieren
+	\item Von Klasse \texttt{Thread} ableiten
+	\item \texttt{Runnable}-Interface implementieren
 \end{enumerate}
 
 \subsection{Sie kennen die drei Arten, wie ein Java Thread beendet werden kann}
@@ -17,13 +17,13 @@
 \begin{enumerate}
 	\item erzwungen (forceful cancellation) heisst sofortiger Abbruch
 	\item verzögert (deferred cancellation) heisst Abbruch beim nächsten Abbruchpunkt
-	\item kooperativ (cooperative cancellation) heisst Thread wird nur gebeten abzubrechen und muss sich dann selbst beenden, z.B. durch \verb|return|
+	\item kooperativ (cooperative cancellation) heisst Thread wird nur gebeten abzubrechen und muss sich dann selbst beenden, z.B. durch \texttt{return}
 \end{enumerate}
 
 \subsection{Sie können einen Thread aus einem andern Softwareteil abbrechen}
 
-Ruft man die Methode \verb|interrupt()| an einem Thread auf, wird ein Interrupt-Flag gesetzt. Innerhalb des Threads kann dieses Flag mit der Methode \verb|Thread.currentThread.isInterrupted()| abgefragt werden und der Thread entsprechend beendet werden (z.B. mit \verb|return|). Es gibt auch noch die statische Methode \verb|Thread.interrupted()|, jedoch löscht diese Methode das Interrupt-Flag.
-Eine \verb|InterruptedException| wird von den Methoden \verb|sleep()|, \verb||join()| und \verb||wait()| geworfen, wenn sie mit \verb|interrupt()| unterbrochen wurden. Eine \verb|InterruptedException| setzt das Interrupt-Flag zurück! Deshalb sollte im catch-Teil das Interrupt-Flag nochmals gesetzt werden.
+Ruft man die Methode \texttt{interrupt()} an einem Thread auf, wird ein Interrupt-Flag gesetzt. Innerhalb des Threads kann dieses Flag mit der Methode \texttt{Thread.currentThread.isInterrupted()} abgefragt werden und der Thread entsprechend beendet werden (z.B. mit \texttt{return}). Es gibt auch noch die statische Methode \texttt{Thread.interrupted()}, jedoch löscht diese Methode das Interrupt-Flag.
+Eine \texttt{InterruptedException} wird von den Methoden \texttt{sleep()}, \texttt{}join()} und \texttt{}wait()} geworfen, wenn sie mit \texttt{interrupt()} unterbrochen wurden. Eine \texttt{InterruptedException} setzt das Interrupt-Flag zurück! Deshalb sollte im catch-Teil das Interrupt-Flag nochmals gesetzt werden.
 
 \subsection{Sie kennen das Monitor Konzept}
 
@@ -52,31 +52,31 @@ public void lock() throws InterruptedException {
 }	  
 \end{lstlisting}
 
-Im obigen Beispiel wird zuerst das \verb|this|-Objekt synchronisiert und danach das \verb|monitorObject|. Es besteht nun Deadlock-Gefahr. Thread 1 hält den Lock für \verb|this| und \verb|monitorObject|. Thread 1 ruft \verb|wait()| auf und gibt den Lock von \verb|monitorObject| frei, aber nicht den Lock von \verb|this|. Wenn jetzt aber Thread 2 den Lock von \verb|this| benötigt um Thread 1 aufzuwecken kommt es zu einem Deadlock.
+Im obigen Beispiel wird zuerst das \texttt{this}-Objekt synchronisiert und danach das \texttt{monitorObject}. Es besteht nun Deadlock-Gefahr. Thread 1 hält den Lock für \texttt{this} und \texttt{monitorObject}. Thread 1 ruft \texttt{wait()} auf und gibt den Lock von \texttt{monitorObject} frei, aber nicht den Lock von \texttt{this}. Wenn jetzt aber Thread 2 den Lock von \texttt{this} benötigt um Thread 1 aufzuwecken kommt es zu einem Deadlock.
 
 \mygraphics{0.5\textwidth}{fig/deadlock.png}{Deadlock}{deadlock}
 
 \subsection{Sie können ''Warten auf Bedingungen'' in Java umsetzten}
 
-Ruft ein Thread an einem anderen Thread \verb|wait()| auf wird dieser Schlafen gelegt (Gibt lock frei). Mit dem Aufruf von \verb|notify()| wird ein Thread aufgeweckt und mit dem Aufruf von \verb|notifyAll()| werden alle Threads aus dem Pool aufgeweckt. \verb|notifyAll()| kann zu Performance-Problemen führen. 
+Ruft ein Thread an einem anderen Thread \texttt{wait()} auf wird dieser Schlafen gelegt (Gibt lock frei). Mit dem Aufruf von \texttt{notify()} wird ein Thread aufgeweckt und mit dem Aufruf von \texttt{notifyAll()} werden alle Threads aus dem Pool aufgeweckt. \texttt{notifyAll()} kann zu Performance-Problemen führen. 
 
-Die Bedingung für \verb|wait()| sollte immer in einer \verb|while|-Schleife geprüft werden. Diese Massnahme verhindert dass der Thread aus Versehen aufgeweckt wird obwohl die Bedingung noch nicht eingetreten ist. 
+Die Bedingung für \texttt{wait()} sollte immer in einer \texttt{while}-Schleife geprüft werden. Diese Massnahme verhindert dass der Thread aus Versehen aufgeweckt wird obwohl die Bedingung noch nicht eingetreten ist. 
 
-\verb|wait()| muss immer vor \verb|notify()| aufgerufen werden, weil das Signal nicht gespeichert wird. Wird \verb|notify()| aufgerufen und kein Thread wartet, wird auch keiner aufgeweckt.
+\texttt{wait()} muss immer vor \texttt{notify()} aufgerufen werden, weil das Signal nicht gespeichert wird. Wird \texttt{notify()} aufgerufen und kein Thread wartet, wird auch keiner aufgeweckt.
 
 \subsection{Sie kennen ausgewählte Synchronisationsmechanismen aus der java.util.concurrent Bibliothek}
 
 \subsubsection{java.util.concurrent.Semaphore}
 
-Dem Konstruktor von \verb|Semaphore(permits)| muss mitgeteilt werden, wie viel von einer Ressource zur Verfügung steht (z.B. bei 5 Druckern stehen 5 Ressourcen bereit). Mit \verb|aquire()| wird ein Zugang angefordert. Mit \verb|release()| wird ein Zugang freigegeben.
+Dem Konstruktor von \texttt{Semaphore(permits)} muss mitgeteilt werden, wie viel von einer Ressource zur Verfügung steht (z.B. bei 5 Druckern stehen 5 Ressourcen bereit). Mit \texttt{aquire()} wird ein Zugang angefordert. Mit \texttt{release()} wird ein Zugang freigegeben.
 
 \subsection{java.util.concurrent.BlockingQueue}
 
-Dieses Interface bietet eine Queue (Puffer) an. Wenn die Queue voll ist wartet der Produzent (\verb|put(element)|). Wenn die Queue leer ist wartet der Konsument (\verb|take()|).
+Dieses Interface bietet eine Queue (Puffer) an. Wenn die Queue voll ist wartet der Produzent (\texttt{put(element)}). Wenn die Queue leer ist wartet der Konsument (\texttt{take()}).
 
 \subsubsection{java.util.concurrent.ThreadPoolExecutor}
 
-Objekte welche das \verb|Runnable|-Interface implementiert haben, können der Methode \verb|execute(run)| übergeben werden. Der ThreadPoolExecutor verteilt die Run-Objekte auf mehrere Worker-Threads. 
+Objekte welche das \texttt{Runnable}-Interface implementiert haben, können der Methode \texttt{execute(run)} übergeben werden. Der ThreadPoolExecutor verteilt die Run-Objekte auf mehrere Worker-Threads. 
 
 \subsection{Sie wissen was Persistenz und Synchronität in der Kommunikation bedeutet}
 

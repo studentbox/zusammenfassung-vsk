@@ -83,12 +83,12 @@ Entwurfsmuster können nach folgenden Gruppen eingeteilt werden:
 \label{sec:patterns}
 
 \subsubsection{Singleton (Erzeugungsmuster)}
-Stellt sicher, dass von einer Klasse immer nur genau ein Objekt vorhanden ist, mittels einem privaten Konstruktor und einer \verb|getInstance()|-Methode. Sparsam einsetzen, sonst enstehen sternförmige Abhängigkeiten zur Singletonklasse.
+Stellt sicher, dass von einer Klasse immer nur genau ein Objekt vorhanden ist, mittels einem privaten Konstruktor und einer \texttt{getInstance()}-Methode. Sparsam einsetzen, sonst enstehen sternförmige Abhängigkeiten zur Singletonklasse.
     Siehe Abbildung \ref{fig:Singleton}.
     \mygraphics{0.5\textwidth}{fig/singleton.png}{Singleton}{Singleton}
 
 \subsubsection{Strategy (Verhaltensmuster)}\label{sec:strategypattern}
- Die Lösung für \verb|switch() case:| Statements oder wenn unterschiedliches Verhalten erriecht werden soll. 
+ Die Lösung für \texttt{switch() case:} Statements oder wenn unterschiedliches Verhalten erriecht werden soll. 
       \mygraphics{0.5\textwidth}{fig/strategy.png}{Strategy}{strategy}
       Der Client muss allerdings alle Implementationen kennen und initialisiert den Kontext mit einer konkreten Implementation. Der Client ruft daraufhin einfach die \texttt{sortiere()}-Methode des Kontexts auf, um die Sortierung zu starten. Wenn ein anderer Algorithmus verwendet werden soll, so wird dem Kontext einfach eine andere Instanz des Algorithmus übergeben.
 
