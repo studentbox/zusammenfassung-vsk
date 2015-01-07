@@ -13,8 +13,7 @@ In Java sind Komponenten normale Klassen. Diese Klassen können sich an die Java
 
 \subsubsection{Modularisierung}
 
-Durch Modularisierung wird versucht die Kopplung zu minimieren und die Kohäsion zu maximieren. Modulare Software sollte nach folgenden Kriterien Entworfen werden:
-
+Durch Modularisierung wird versucht die Kopplung zu minimieren und die Kohäsion zu maximieren. Modulare Software sollte nach folgenden Kriterien entworfen werden:
 \begin{itemize}
 	\item \textbf{Zerlegbarkeit} \\
 		  Zerlege ein Problem in weniger komplexe Teilprobleme (sollten unabhängig voneinander entwickelbar sein)
@@ -25,9 +24,7 @@ Durch Modularisierung wird versucht die Kopplung zu minimieren und die Kohäsion
 	\item \textbf{Stetigkeit} \\
 		  Kleine Änderungen der Anforderungen sollten nur einen kleinen Teil der Module betreffen
 \end{itemize}
-
 Folgende Prinzipien sollten ebenfalls beachtet werden:
-
 \begin{itemize}
 	\item lose Kopplung (Abbildung \ref{fig:kopplung_kohaesion})
 	\item starke Kohäsion (Abbildung \ref{fig:kopplung_kohaesion})
@@ -35,33 +32,27 @@ Folgende Prinzipien sollten ebenfalls beachtet werden:
 	\item wenige Schnittstellen
 	\item explizite Schnittstellen
 \end{itemize}
+Man spricht von einer use-Beziehung wenn das korrekte Funktionieren von A von einer korrekten Implementation von B abhängt.
 
 \mygraphics{0.5\textwidth}{fig/kopplung_kohaesion.png}{Zusammenhang zwischen Kopplung und Kohäsion}{kopplung_kohaesion}
-
-Man spricht von einer use-Beziehung wenn das korrekte Funktionieren von A von einer korrekten Implementation von B abhängt.
 
 \newpage
 
 \subsection{Sie kennen die Kriterien für gute Schnittstellen im Software-Entwurf und können solche Schnittstellen entwerfen}
 
 Schnittstellen vereinfachen die Software-Entwicklung weil:
-
 \begin{itemize}
 	\item Schnittstellen machen Software einfacher verständlicher, weil der Benutzer nur die Schnittstelle kennen muss um eine Komponente verwenden zu können.
 	\item Schnittstellen helfen auch Abhängigkeiten zu reduzieren.
 	\item Schnittstellen erleichtern auch die Wiederverwendbarkeit von bestehender Software.
 \end{itemize}
-
 Schnittstellen sollten nach folgenden Kriterien entworfen werden:
-
 \begin{itemize}
 	\item Schnittstellen sollen minimal sein (wenig Methoden, wenig Parameter, keine globalen Daten)
 	\item Schnittstellen sollen einfach zu verstehen sein
 	\item Schnittstellen sollen gut dokumentiert sein
 \end{itemize}
-
 Beim \ac{DbC} wird das Zusammenspiel der Komponenten mit einem Vertrag geregelt. Der Vertrag besteht aus:
-
 \begin{itemize}
 	\item \textbf{Preconditions} \\
 		  Zusicherungen die der Nutzer einzuhalten hat.
@@ -74,7 +65,6 @@ Beim \ac{DbC} wird das Zusammenspiel der Komponenten mit einem Vertrag geregelt.
 \subsection{Sie können verschiedene Arten von Schnittstellen angemessen dokumentieren}
 
 Jede Programmschnittstelle definiert eine Menge von Methoden mit den folgenden Eigenschaften:
-
 \begin{itemize}
 	\item \textbf{Syntax} \\
 		  Wird mit der verwendeten Programmiersprache beschrieben (Rückgabewerte, Argumente usw.).
@@ -85,7 +75,6 @@ Jede Programmschnittstelle definiert eine Menge von Methoden mit den folgenden E
 	\item \textbf{Nichtfunktionale Eigenschaften} \\
 		  Weitere Faktoren wie z.B. Performance, Robustheit, Verfügbarkeit usw.
 \end{itemize}
-
 Abbildung \ref{fig:schnittstellen} zeigt die verschiedenen Schnittstellen-Typen.
 
 \mygraphics{0.7\textwidth}{fig/schnittstellen.png}{Schnittstellen-Typen}{schnittstellen}
@@ -132,7 +121,6 @@ Systemtest prüfen die gesamte Wirkungskette eines Softwareproduktes unter mögl
 	\item Erwartete Resultate der Integrationstests gehören in den Testplan
 	\item Schnittstellen und UML-Diagramme gehören in die Systemspezifikation
 \end{itemize}
-
 Abbildung \ref{fig:doku} zeigt was für wen dokumentiert wird.
 
 \mygraphics{0.5\textwidth}{fig/doku.png}{Dokumentation}{doku}
@@ -143,7 +131,7 @@ Abbildung \ref{fig:doku} zeigt was für wen dokumentiert wird.
 
 Bei einem Review werden die Artefakte eines Meilensteins überprüft. Das Ziel ist Fehler möglichst früh zu erkennen und so Kosten zu sparen. Tabelle \ref{tab:reviewarten} zeigt die verschiedenen Review-Arten.
 
-\begin{table}
+\begin{table}[h!]
 	\centering
 	\begin{tabular}{|l|c|c|c|c|c|}
 		\hline Review Type 		& Planning 	& Preparation 	& Meeting 		& Correction 	& Verification 	\\ 
@@ -171,9 +159,7 @@ In einem System sind alle Teilsysteme (Software, Hardware usw.) Änderungen unte
 	\item \emph{data and data dictionaries}
 	\item \emph{documentation for installation, maintenance, operations etc.}
 \end{itemize} 
-
 Folgende Begriffe sind im \ac{SCM} wichtig:
-
 \begin{itemize}
 	\item \textbf{Version} \\
 		  Eine Version ist ein spezifisches, identifizierbares Artefakt auf einem bestimmten Entwicklungsstand.
