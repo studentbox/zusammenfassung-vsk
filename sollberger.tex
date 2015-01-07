@@ -5,12 +5,11 @@
 
 \subsubsection{Komponentenarchitekturen}
 
-Bei den Komponentenarchitekturen werden grundsätzlich zwischen Client (kurzlebig) / Server (langlebig) und Peer-to-Peer (keine zentrale Stelle) unterschieden. Es wird auch zwischen Thin-Client und Fat-Client unterschieden. Ein Thin-Client ist stark auf die Hilfe eines Servers angewiesen, um seine Aufgaben erledigen zu können. Ein Fat-Client verarbeitet seine Daten vor Ort und ist unabhängiger vom Server. Zudem wird zwischen verschiedenen Tiers unterschieden. Bei einem 2-Tier sind Präsentation, Anwendungslogik und Datenhaltung auf zwei Anwendungen verteilt. Bei 3-Tier erhält die Anwendungslogik ein eigenes Tier (Präsentation - Logik - Daten). Bei einer n-Tier Architektur werden die Logik und Daten auf verschiedene Tiers verteilt.
+Bei den Komponentenarchitekturen werden grundsätzlich zwischen Client (kurzlebig)/Server (langlebig) und Peer-to-Peer (keine zentrale Stelle) unterschieden. Es wird auch zwischen Thin-Client und Fat-Client unterschieden. Ein Thin-Client ist stark auf die Hilfe eines Servers angewiesen, um seine Aufgaben erledigen zu können. Ein Fat-Client verarbeitet seine Daten vor Ort und ist unabhängiger vom Server. Zudem wird zwischen verschiedenen Tiers unterschieden. Bei einem 2-Tier sind Präsentation, Anwendungslogik und Datenhaltung auf zwei Anwendungen verteilt. Bei 3-Tier erhält die Anwendungslogik ein eigenes Tier (Präsentation - Logik - Daten). Bei einer n-Tier Architektur werden die Logik und Daten auf verschiedene Tiers verteilt.
 
 \subsubsection{Middleware}
 
-Eine Middleware vermittelt zwischen Anwendungen und verbirgt dadurch die Komplexität und Infrastruktur dieser Anwendung. Es wird zwischen folgenden Middleware-Kategorien unterschieden:
-
+Eine Middleware vermittelt zwischen Anwendungen und verbirgt dadurch die Komplexität und Infrastruktur dieser Kommunikation. Es wird zwischen folgenden Middleware-Kategorien unterschieden:
 \begin{itemize}
 	\item \textbf{Kommunikationsorientierte Middleware} \\
 		  Die Netzwerkprogrammierung wird abstrahiert (z.B. RMI, Web Services)
@@ -25,7 +24,6 @@ Eine Middleware vermittelt zwischen Anwendungen und verbirgt dadurch die Komplex
 \subsubsection{Remote Procedure Call (RPC)}
 
 RPC ist eine Middleware, die es einem Client ermöglicht Funktionen auf einem entfernten Server wie lokal aufzurufen. Die Kommunikation wird mit einer Schnittstelle beschrieben (z.B. mit Interface Defenition Language). Damit man über RPC kommunizieren kann braucht man folgende Komponenten:
-
 \begin{itemize}
 	\item \textbf{Client Stub} \\
 	Der Client Stub verpackt die Nachricht (marshalling) und schickt sie an den Server. Kommt die Antwort vom Server zurück verarbeitet der Client Stub diese.
@@ -34,7 +32,6 @@ RPC ist eine Middleware, die es einem Client ermöglicht Funktionen auf einem en
 	\item \textbf{Server Stub} \\
 	Der Server Stub entpackt die Nachricht (unmarshalling) vom Client und ruft eine entsprechende Prozedur auf. Wurde die Anfrage verarbeitet schickt er das Ergebniss an den Client.
 \end{itemize}  
-
 Bei der RPC Kommunikation können Fehler auftreten (Client/Server fällt aus, Nachrichten gehen verloren usw.). Deshalb wurden folgende Fehlersemantiken definiert:
 
 \begin{itemize}
@@ -78,23 +75,20 @@ subject.someRemoteMethod();
 \subsection{Sie kennen die wichtigsten Konzepte und Begriffe von Message Oriented Middleware (MoM)}
 
 Bei \ac{MoM} werden Nachrichten (messages) über Warteschlangen (queues) ausgetauscht. Dadurch werden Client und Server voneinander entkoppelt (d.h. sie müssen nicht gleichzeitig aktiv sein). Es existieren zwei Kommunikationsmodelle:
-
 \begin{itemize}
 	\item \textbf{point-to-point} \\
 		  Jede Nachricht hat genau ein Konsument.
 		  
-	\item \textbf{publish / subscribe}
+	\item \textbf{publish / subscribe} \\
 		  Herausgeber stellt allen Abonnenten eine Kopie der Nachricht zur Verfügung.
 \end{itemize}
-
-Es gibt robuste und stabile Produkte (\ac{JMS}, SOAP, Microsoft Message Queueing) welche auf \ac{MoM} basieren jedoch keinen einheitlichen Standard. Java EE bietet mit dem \ac{JMS} einen Message Dienst an.
+Es gibt robuste und stabile Produkte (SOAP, Microsoft Message Queueing) welche auf \ac{MoM} basieren jedoch keinen einheitlichen Standard. Java EE bietet mit dem \ac{JMS} einen Message Dienst an.
 
 \subsection{Sie kennen die wichtigsten Konzepte und Begriffe von CORBA IDL und CORBA}
 
 \subsubsection{CORBA}
 
 CORBA ist eine Middleware Technologie, die mithilfe des \ac{ORB} eine Kommunikation zwischen entfernten Objekten ermöglicht. Die Objekte und deren Funktionalität sind von der Kommunikation der Objekte völlig getrennt. CORBA besteht aus folgenden Komponenten:
-
 \begin{itemize}
 	\item \textbf{Anwenderobjekten} \\
 		  Anwenderobjekte werden vom Programmierer erstellt und genutzt.
@@ -103,7 +97,6 @@ CORBA ist eine Middleware Technologie, die mithilfe des \ac{ORB} eine Kommunikat
 	\item \textbf{CORBA Services} \\
 		  Die CORBA Services sind von der \ac{OMG} definiert und mittels IDL beschrieben. Der wichtigste Service ist der Naming Service, welcher verständliche Namen auf die Objektreferenz abbildet. Es gibt noch weitere Services wie z.B. der Persistent Object Service welcher Objekte in einer Datenbank speichert.
 \end{itemize}
-
 Die oben beschriebenen Objekte können über den \ac{ORB} aufgerufen werden. Abbildung \ref{fig:corba} zeigt die Bestandteile des \acp{ORB}.
 
 \mygraphics{0.7\textwidth}{fig/corba.png}{ORB Teilsysteme}{corba}
@@ -184,7 +177,7 @@ module CourseRegistration {
 
 \subsection{Sie kennen die wichtigsten Konzepte und Begriffe von DCOM und Windows Communication Foundation}
 
-\ac{DCOM} ist ein objektorientiertes RPC System. DCOM ermöglicht komponentenbasierte Softwareentwicklung über verteilte Systeme. \ac{DCOM} ist inzwischen von der \ac{WCF} abgelöst worden. \ac{WCF} ist der neue, service-orientierte Microsoft-Standart für verteilte Systeme. 
+\ac{DCOM} ist ein objektorientiertes RPC System. DCOM ermöglicht komponentenbasierte Softwareentwicklung über verteilte Systeme. \ac{DCOM} ist inzwischen von der \ac{WCF} abgelöst worden. \ac{WCF} ist der neue, service-orientierte Microsoft-Standard für verteilte Systeme. 
 
 \subsection{Sie kennen die wichtigsten Konzepte und Begriffe von WEB Services und RESTful WEB Services}
 
