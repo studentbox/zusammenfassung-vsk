@@ -99,7 +99,7 @@ Dieser Zusammenhang lässt sich mit dem V-Modell (Abbildung \ref{fig:v_modell}) 
 
 \mygraphics{0.5\textwidth}{fig/v_modell.png}{V-Modell}{v_modell}
 
-Beim Validieren wird sichergestellt dass das richtige Produkt entwickelt wird (z.B. mit Kundenreview). Beim Verifizieren wird überprüft ob das Produkt der Spezifikation entspricht (z.B. mit Unit-Tests).
+Beim Validieren wird sichergestellt dass das richtige Produkt entwickelt wird (z.B. mit Kundenreview). Beim Verifizieren wird überprüft ob das Produkt der Spezifikation entspricht (z.B. mit Integrations-/Systemtests).
 
 \newpage
 
@@ -129,7 +129,7 @@ Abbildung \ref{fig:doku} zeigt was für wen dokumentiert wird.
 
 \subsection{Sie kennen Arten, Zweck und Bedeutung von Reviews und können ein Review durchführen und protokollieren}
 
-Bei einem Review werden die Artefakte eines Meilensteins überprüft. Das Ziel ist Fehler möglichst früh zu erkennen und so Kosten zu sparen. Tabelle \ref{tab:reviewarten} zeigt die verschiedenen Review-Arten.
+Bei einem Review werden die Artefakte eines Projekts überprüft. Das Ziel ist Fehler möglichst früh zu erkennen und so Kosten zu sparen. Generell sollen nur immer kleine Teile des Projekts reviewt werden, dann geht die Sitzung auch nicht ewigs. Möglichst früh die High-Level Artefakte reviewen, denn die profitieren am meisten. Tabelle \ref{tab:reviewarten} zeigt die verschiedenen Review-Arten. 
 
 \begin{table}[h!]
 	\centering
@@ -147,6 +147,23 @@ Bei einem Review werden die Artefakte eines Meilensteins überprüft. Das Ziel i
 	\caption{Review-Arten}
 	\label{tab:reviewarten}
 \end{table}
+
+\begin{itemize}
+  \item \textbf{Inspection} \\
+  Die formalste Art des Reviews. Ist ein strukturierter, wohldefinierter Prozess. Eingesetzt für die kritischsten Architekturen / Entscheide.
+  \item \textbf{Team Review} \\
+  Eine Sitzung, wo Teile des Projekts genauer unter die Lupe genommen werden, ebenfalls geplant und strukturiert wie die Inspektion, aber nicht so formal.
+  \item \textbf{Walkthrough} \\
+  Der Autor stellt sein Produkt einer Gruppe von Fachkollegen vor. Ein Szenario und mögliche Alternativen werden durchgespielt.
+  \item \textbf{Pair Programming} \\
+  Zwei Entwickler arbeiten gemeinsam am selben Produkt.
+  \item \textbf{Peer Review} \\
+  Ein Arbeitskollege überprüft das Ergebnis
+  \item \textbf{Passaround} \\
+  Ein Dokument wird vorbereitet und an verschiedene Personen versandt und deren Feedback eingeholt. Ist zeitlich sehr effizient, benötigt aber einiges an Disziplin.
+  \item \textbf{Ad Hoc Review} \\
+  Normaler Bestandteil der Teamarbeit.
+\end{itemize}
 
 \subsection{Sie kennen Bedeutung, Begrifflichkeit und Methoden des Konfigurationsmanagements}\label{sec:konfigurationsmanagement}
 
@@ -177,7 +194,7 @@ Nach klar!
 
 \subsection{Sie können Sprintbacklogs für ein kleines Team formulieren, schätzen und geeignete Abnahmekriterien festlegen}
 
-WI zügs... (Scrum Do sucks!)
+WI zügs... (Scrum Do sucks!) Anm. des Autors: Warum hat Fabian ScrumDo nicht gerne? Hat es ihm was getan?
 
 \subsection{Sie können ein Controlling auf Projekt- und Sprintebene für kleine Entwicklungsprojekte gemäss SoDa führen}
 

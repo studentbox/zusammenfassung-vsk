@@ -42,7 +42,7 @@ Bei der RPC Kommunikation können Fehler auftreten (Client/Server fällt aus, Na
 	\item \textbf{At-most-once Semantik} \\
 	Der Server überprüft dass die Prozedur vom Client höchstens einmal ausgeführt wurde. Bei einem Serverausfall kriegt der Client keine Antwort.
 	\item \textbf{Exactly-once Semantik} \\
-	Sowohl beim Nachrichtenverlust als auch bei einem Serverausfall wird die Prozedur verarbeitet und der Client erhält eine Antwort.
+	Sowohl beim Nachrichtenverlust als auch bei einem Serverausfall wird die Prozedur nach dem Neustart garantiert einmal verarbeitet und der Client erhält genau eine Antwort.
 \end{itemize}
 
 \subsubsection{Remote Methode Invocation (RMI)}
