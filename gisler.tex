@@ -82,13 +82,13 @@ Entwurfsmuster können nach folgenden Gruppen eingeteilt werden:
 \label{sec:patterns}
 
 \subsubsection{Singleton (Erzeugungsmuster)}
-Stellt sicher, dass von einer Klasse immer nur genau ein Objekt vorhanden ist. Deshalb hat ein Singleton einen privaten Konstruktor und die Klasse ist final deklariert. Eine statische Methode \texttt{getInstance()} liefert immer die selbe Objekt zurück. Singleton sollten sparsam eingesetzt werden, weil sternförmige Abhängigkeiten entstehen und sie schlecht testbar sind. Abbildung \ref{fig:singleton} zeigt einen Singleton in UML.
+Stellt sicher, dass von einer Klasse immer nur genau ein Objekt vorhanden ist. Deshalb hat ein Singleton einen privaten Konstruktor und die Klasse ist final deklariert. Eine statische Methode \texttt{getInstance()} liefert immer dasselbe Objekt zurück. Singleton sollten sparsam eingesetzt werden, weil sternförmige Abhängigkeiten entstehen und sie schlecht testbar sind. Abbildung \ref{fig:singleton} zeigt einen Singleton in UML.
     
 \mygraphics{0.5\textwidth}{fig/singleton.png}{Singleton}{singleton}
 
 \subsubsection{Strategy (Verhaltensmuster)}
 \label{sec:strategypattern}
-Kann als bessere Alternative für \texttt{switch}-Statements oder wenn unterschiedliches Verhalten erreicht werden sollen verwendet werden. Der Client muss allerdings alle Implementationen kennen und initialisiert den Kontext mit einer konkreten Implementation. Der Client ruft daraufhin einfach die \texttt{sortiere()}-Methode des Kontexts auf, um die Sortierung zu starten. Wenn ein anderer Algorithmus verwendet werden soll, so wird dem Kontext einfach eine andere Instanz des Algorithmus übergeben.
+Kann als bessere Alternative für \texttt{switch}-Statements oder wenn unterschiedliches Verhalten erreicht werden sollen verwendet werden. Der Client muss allerdings alle Implementationen bei der Initialisierung kennen und initialisiert den Kontext mit einer konkreten Implementation. Der Client ruft daraufhin einfach die \texttt{sortiere()}-Methode des Kontexts auf, um die Sortierung zu starten. Wenn ein anderer Algorithmus verwendet werden soll, so wird dem Kontext einfach eine andere Instanz des Algorithmus übergeben.
 
 \mygraphics{0.5\textwidth}{fig/strategy.png}{Strategy}{strategy}
 
@@ -236,15 +236,17 @@ Ein sauberer = lesbarer Unit-Test ist es dann, wenn er klar, einfach und ausdruc
       \item \textbf{T}imely - Tests sollen vor dem eigentlichen Code geschrieben werden -> Test First!
   \end{itemize}
   \item \textbf{Möglichst viel Testen} \\
-  Klar oder? Einfach alle Bedingungen/Varianten/Berechnungen möglichst testen. Immer nach dem Aufwand abschätzen.
+  Klar oder? Einfach alle Bedingungen/Varianten/Berechnungen möglichst testen. Aber auch immer nach dem Aufwand abschätzen. Das heisst:
+  \begin{itemize}
+  \item Triviale Tests auch machen - auch getter und setter.
+  \item Grenzbedingungen - Addition: was passiert bei einem Überlauf?
+
+\end{itemize}
+
   \item \textbf{Code Coverage Werkzeuge verwenden} \\
   Diese zeigen auf, welche Zeilen ausgeführt wurden und welche nicht - hilft bei der Fehlersuche.
-  \item \textbf{Triviale Tests auch machen} \\
-  Ja, auch getter und setter.
   \item \textbf{Tests nicht ignorieren / auskommentieren} \\
   Denn dies ist ein Warnsignal und man sollte kurz die Anforderungen/Programmcode checken.
-  \item \textbf{Grenzbedingungen} \\
-  Das sind die interessantesten Fälle - man denke an eine Addition - was passiert bei einem Überlauf?
   \item \textbf{Ein Fehler kommt selten allein} \\
   Funktion des Fehlers ausgiebig testen - evt. ganzer Rattenschwanz an Fehlern - Murphys Law hasst uns alle.
   \item \textbf{Muster der Ergebnisse von Tests zur Diagnose nutzen} \\

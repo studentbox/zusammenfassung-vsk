@@ -32,14 +32,14 @@ Eine \texttt{InterruptedException} wird von den Methoden \texttt{sleep()}, \text
 
 Beginnen wir mit einem anschaulichen Alltagsbeispiel. Gehen wir aufs Klo, schliessen wir die Tür hinter uns. Möchte jemand anderes auf die Toilette, muss er warten. Vielleicht kommen noch mehrere dazu, die müssen dann auch warten, und eine Warteschlange bildet sich. Dass die Toilette besetzt ist, signalisiert die abgeschlossene Tür. Jeder Wartende muss so lange vor dem Klo ausharren, bis das Schloss geöffnet wird, selbst wenn der auf der Toilette Sitzende nach einer langen Nacht einnicken sollte.
 
-Wie übertragen wir das auf Java? Soll die Laufzeitumgebung nur einen Thread in einen Block lassen, ist ein Monitor nötig. Ein Monitor wird mithilfe eines Locks (zu Deutsch »Schloss«) realisiert, welches ein Thread öffnet oder schliesst. Tritt ein Thread in den kritischen Abschnitt ein, muss Programmcode wie eine Tür abgeschlossen werden (engl. lock). Erst wenn der Abschnitt durchlaufen wurde, darf die Tür wieder aufgeschlossen werden (engl. unlock), und ein anderer Thread kann den Abschnitt betreten.
-
+Wie übertragen wir das auf Java? Soll ein Block nur von einem Thread gleichzeitig ausführbar, ist ein Monitor nötig. Ein Monitor wird mithilfe eines Locks (zu Deutsch »Schloss«) realisiert, welches ein Thread öffnet oder schliesst. Tritt ein Thread in den kritischen Abschnitt ein, wird der Bereich wie eine Tür abgeschlossen (engl. lock). Erst wenn der Abschnitt durchlaufen wurde, wird die Tür wieder aufgeschlossen (engl. unlock), und ein anderer Thread kann den Abschnitt betreten.
 
 \subsection{Sie wissen was Reentrant und Nested Monitore sind und können diese vermeiden}
 
 \subsubsection{Reentrant Monitor}
 
-Betritt ein Thread eine synchronisierte Methode/Abschnitt, dessen Lock er schon besitzt, kann er sofort eintreten ohne den lock-Pool zu durchlaufen. Ohne diese Möglichkeit würden Rekursionen nicht funktionieren. Dies reduziert aber auch die Parallelität, weil kritische Abschnitte künstlich vergrössert werden.
+Betritt ein Thread eine synchronisierte Methode/Abschnitt, dessen Lock er schon besitzt, kann er sofort eintreten ohne den lock-Pool zu durchlaufen. Ohne diese Möglichkeit würden Rekursionen nicht funktionieren, da sonst ein Deadlock auftreten würde, da der Thread sozusagen wartet, bis er selbst den Lock wieder freigibt. 
+Reentrant Monitore reduzieren aber auch die Parallelität, weil kritische Abschnitte künstlich vergrössert werden.
 
 \subsubsection{Nested Monitor}
 
@@ -59,7 +59,7 @@ Im obigen Beispiel wird zuerst das \texttt{this}-Objekt synchronisiert und danac
 
 \subsection{Sie können ''Warten auf Bedingungen'' in Java umsetzten}
 
-Ruft ein Thread an einem anderen Thread \texttt{wait()} auf wird dieser Schlafen gelegt (Gibt den Lock frei). Mit dem Aufruf von \texttt{notify()} wird ein Thread aufgeweckt und mit dem Aufruf von \texttt{notifyAll()} werden alle Threads aus dem Pool aufgeweckt. \texttt{notifyAll()} kann zu Performance-Problemen führen. 
+Ruft ein Thread an einem anderen Thread \texttt{wait()} auf wird dieser Schlafen gelegt (und gibt den Lock frei). Mit dem Aufruf von \texttt{notify()} wird ein Thread aufgeweckt und mit dem Aufruf von \texttt{notifyAll()} werden alle Threads aus dem Pool aufgeweckt. \texttt{notifyAll()} kann zu Performance-Problemen führen. 
 
 Die Bedingung für \texttt{wait()} sollte immer in einer \texttt{while}-Schleife geprüft werden. Diese Massnahme verhindert dass der Thread aus Versehen aufgeweckt wird obwohl die Bedingung noch nicht eingetreten ist. 
 
@@ -71,7 +71,7 @@ Die Bedingung für \texttt{wait()} sollte immer in einer \texttt{while}-Schleife
 
 Dem Konstruktor von \texttt{Semaphore(permits)} muss mitgeteilt werden, wie viel von einer Ressource zur Verfügung steht (z.B. bei 5 Druckern stehen 5 Ressourcen bereit). Mit \texttt{aquire()} wird ein Zugang angefordert. Mit \texttt{release()} wird ein Zugang freigegeben.
 
-\subsection{java.util.concurrent.BlockingQueue}
+\subsubsection{java.util.concurrent.BlockingQueue}
 
 Dieses Interface bietet eine Queue (Puffer) an. Wenn die Queue voll ist wartet der Produzent (\texttt{put(element)}). Wenn die Queue leer ist wartet der Konsument (\texttt{take()}).
 
@@ -87,7 +87,7 @@ Bei einer persistenten Kommunikation wird eine Nachricht so lange gespeichert bi
 
 \subsubsection{Synchronität}
 
-Bei einer synchronen Kommunikation wird der Sender blockiert bis der Empfänger die Nachricht empfangen hat (z.B. Telefon). Synchrone Kommunikations ist bei zeitkritischen Anwendungen von Vorteil. Bei einer asynchronen Kommunikation wird der Sender fortgesetzt unmittelbar nach dem er seine Nachricht zur Übertragung weiter gegeben hat (z.B. Diskussionsforum). Der Sender kann sich bei der asynchronen Kommunikation um andere Aufgaben kümmern, weil der nicht blockiert ist.
+Bei einer synchronen Kommunikation wird der Sender blockiert bis der Empfänger die Nachricht empfangen hat (z.B. Telefon). Synchrone Kommunikations ist bei zeitkritischen Anwendungen von Vorteil. Bei einer asynchronen Kommunikation wird der Sender fortgesetzt unmittelbar nach dem er seine Nachricht zur Übertragung weiter gegeben hat (z.B. Diskussionsforum). Der Sender kann sich bei der asynchronen Kommunikation um andere Aufgaben kümmern, weil er nicht blockiert ist.
 
 \subsection{Sie wissen was eine Nachricht ist und kennen die Prinzipien der Nachrichtenverarbeitung}
 
