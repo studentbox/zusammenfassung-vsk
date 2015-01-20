@@ -17,9 +17,14 @@
 \subsection{Sie kennen die drei Arten, wie ein Java Thread beendet werden kann}
 
 \begin{enumerate}
-	\item erzwungen (forceful cancellation) heisst sofortiger Abbruch
-	\item verzögert (deferred cancellation) heisst Abbruch beim nächsten Abbruchpunkt
-	\item kooperativ (cooperative cancellation) heisst Thread wird nur gebeten abzubrechen und muss sich dann selbst beenden, z.B. durch \texttt{return} in \texttt{run}-Methode
+	\item Die run-Methode wurde ohne Fehler beendet.
+	\item In der run-Methode tritt eine Ausnahme (Exception) auf, welche die Methode beendet.
+	\item Der Thread wurde von aussen abgebrochen:
+	\begin{itemize}
+		\item erzwungen (forceful cancellation) heisst sofortiger Abbruch
+		\item verzögert (deferred cancellation) heisst Abbruch beim nächsten Abbruchpunkt
+		\item kooperativ (cooperative cancellation) heisst Thread wird nur gebeten abzubrechen (z.B. durch \texttt{return} in \texttt{run}-Methode)
+	\end{itemize}
 \end{enumerate}
 
 \subsection{Sie können einen Thread aus einem andern Softwareteil abbrechen}
