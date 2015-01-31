@@ -3,6 +3,14 @@
 
 \subsection{Sie kennen die grundlegenden Aufgaben eines Versionskontrollsystems (VCS) und können damit arbeiten}
 
+Mit einem \ac{VCS} lassen sich Änderungen im Quellcode verfolgen. Mit Hilfe eines \ac{VCS} lässt sich jederzeit auf alte Änderungsstände (Revisionen) zurückgreifen. Ein \ac{VCS} ist für das Arbeiten im Team ausgelegt (zentrale Daten, automatisches Merging). Die nachfolgende Liste zeigt die wichtigsten Befehle auf:
+\begin{itemize}
+	\item \texttt{checkout} - von einem Projekt eine lokale Arbeitskopie erstellen
+	\item \texttt{update} - Änderungen Dritter in die Arbeitskopie aktualisieren
+	\item \texttt{commit} - lokale Veränderungen in das Repository zurückschreiben (Kommentar nicht vergessen)
+\end{itemize}
+Es können zudem gewisse Revisionen mit einem Namen \emph{getaggt} werden, um diese später besser identifizieren zu können (z.B. Release 1). Zudem können mithilfe von \emph{Branches} eigene getrennte Entwicklungszweige erstellt werden. CVS, Subversion und git sind die bekanntesten \ac{VCS} zurzeit. 
+
 \subsection{Sie wissen was ein automatisierter Buildprozess ist und kennen seine Vorteile}
 
 Alle Tätigkeiten (Kompilieren, Testen, Packen usw.) des Buildprozesses werden automatisch ausgeführt. Durch die Automatisierung ergeben sich folgende Vorteile:
