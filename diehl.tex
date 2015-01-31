@@ -57,7 +57,7 @@ public void lock() throws InterruptedException {
 			this.monitorObject.wait();
 		}
 	}
-}	  
+}
 \end{lstlisting}
 
 Im obigen Beispiel wird zuerst das \texttt{this}-Objekt synchronisiert und danach das \texttt{monitorObject}. Es besteht nun Deadlock-Gefahr. Thread 1 hält den Lock für \texttt{this} und \texttt{monitorObject}. Thread 1 ruft \texttt{wait()} auf und gibt den Lock von \texttt{monitorObject} frei, jedoch nicht den Lock von \texttt{this}. Wenn jetzt Thread 2 den Lock von \texttt{this} benötigt um Thread 1 aufzuwecken kommt es zu einem Deadlock.
@@ -92,7 +92,7 @@ Bei einer persistenten Kommunikation wird eine Nachricht so lange gespeichert bi
 
 \subsubsection{Synchronität}
 
-Bei einer synchronen Kommunikation wird der Sender blockiert bis der Empfänger die Nachricht empfangen hat (z.B. Telefon). Synchrone Kommunikations ist bei zeitkritischen Anwendungen von Vorteil. Bei einer asynchronen Kommunikation wird der Sender fortgesetzt unmittelbar nach dem er seine Nachricht zur Übertragung weiter gegeben hat (z.B. Diskussionsforum). Der Sender kann sich bei der asynchronen Kommunikation um andere Aufgaben kümmern, weil er nicht blockiert ist.
+Bei einer synchronen Kommunikation wird der Sender blockiert bis der Empfänger die Nachricht empfangen hat (z.B. Telefon). Synchrone Kommunikation ist bei zeitkritischen Anwendungen von Vorteil. Bei einer asynchronen Kommunikation wird der Sender fortgesetzt unmittelbar nach dem er seine Nachricht zur Übertragung weiter gegeben hat (z.B. Diskussionsforum). Der Sender kann sich bei der asynchronen Kommunikation um andere Aufgaben kümmern, weil er nicht blockiert ist.
 
 \subsection{Sie wissen was eine Nachricht ist und kennen die Prinzipien der Nachrichtenverarbeitung}
 

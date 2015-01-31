@@ -23,15 +23,15 @@ Eine Middleware vermittelt zwischen Anwendungen und verbirgt dadurch die Komplex
 
 \subsubsection{Remote Procedure Call (RPC)}
 
-RPC ist eine Middleware, die es einem Client ermöglicht Funktionen auf einem entfernten Server wie lokal aufzurufen. Die Kommunikation wird mit einer Schnittstelle beschrieben (z.B. mit Interface Defenition Language). Damit man über RPC kommunizieren kann braucht man folgende Komponenten:
+RPC ist eine Middleware, die es einem Client ermöglicht Funktionen auf einem entfernten Server wie lokal aufzurufen. Die Kommunikation wird mit einer Schnittstelle beschrieben (z.B. mit Interface Definition Language). Damit man über RPC kommunizieren kann braucht man folgende Komponenten:
 \begin{itemize}
 	\item \textbf{Client Stub} \\
 	Der Client Stub verpackt die Nachricht (marshalling) und schickt sie an den Server. Kommt die Antwort vom Server zurück verarbeitet der Client Stub diese.
 	\item \textbf{RPC Infrastruktur} \\
 	stellt Laufzeitumgebung und Infrastruktur zur Verfügung (Binding, Starten/Stoppen der Serverprozesse usw.)
 	\item \textbf{Server Stub} \\
-	Der Server Stub entpackt die Nachricht (unmarshalling) vom Client und ruft eine entsprechende Prozedur auf. Wurde die Anfrage verarbeitet schickt er das Ergebniss an den Client.
-\end{itemize}  
+	Der Server Stub entpackt die Nachricht (unmarshalling) vom Client und ruft eine entsprechende Prozedur auf. Wurde die Anfrage verarbeitet schickt er das Ergebnis an den Client.
+\end{itemize}
 Bei der RPC Kommunikation können Fehler auftreten (Client/Server fällt aus, Nachrichten gehen verloren usw.). Deshalb wurden folgende Fehlersemantiken definiert:
 
 \begin{itemize}
@@ -144,7 +144,7 @@ NamingContextExt ns = NamingContextExtHelper.narrow(nsRef);
 
 // Namen auflösen -> CORBA-Objektreferenz
 org.omg.CORBA.Object clac_path = ns.resolve_str("sharedcalculator");
-       
+
 // Objekt aus CORBA-Objektreferenz bilden
 Calculator calc = CalculatorHelper.narrow(clac_path);
 \end{lstlisting}
@@ -179,7 +179,7 @@ module CourseRegistration {
 
 \subsection{Sie kennen die wichtigsten Konzepte und Begriffe von DCOM und Windows Communication Foundation}
 
-\ac{DCOM} ist ein objektorientiertes RPC System. DCOM ermöglicht komponentenbasierte Softwareentwicklung über verteilte Systeme. \ac{DCOM} ist inzwischen von der \ac{WCF} abgelöst worden. \ac{WCF} ist der neue, service-orientierte Microsoft-Standard für verteilte Systeme. 
+\ac{DCOM} ist ein objektorientiertes RPC System. DCOM ermöglicht komponentenbasierte Softwareentwicklung über verteilte Systeme. \ac{DCOM} ist inzwischen von der \ac{WCF} abgelöst worden. \ac{WCF} ist der neue, service-orientierte Microsoft-Standard für verteilte Systeme. Das \ac{WCF} basiert auf dem ABC-Prinzip (Adress, Binding, Contract).
 
 \subsection{Sie kennen die wichtigsten Konzepte und Begriffe von WEB Services und RESTful WEB Services}
 

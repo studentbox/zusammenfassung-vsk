@@ -81,7 +81,6 @@ Entwurfsmuster können nach folgenden Gruppen eingeteilt werden:
   Fassen Objekte zu grösseren Strukturen zusammen oder verbinden sie.
   \item \textbf{Verhaltensmuster} \\
   Beschreiben die Interaktion zwischen Objekten, mit Kontrollflüssen etc. Können die Zuständigkeit / Kontrolle delegieren.
-  
 \end{itemize}
 
 \newpage
@@ -222,11 +221,11 @@ Sollte gegen Ende Projekt immer mehr abnehmen und nicht mehr ansteigen.
 \subsection{Sie kennen die Kriterien von Clean Code bezüglich der Implementation von guten Testfällen}
 
 \subsubsection{Grundsätze von Unit Tests}
-Ein sauberer = lesbarer Unit-Test ist es dann, wenn er klar, einfach und ausdrucksdicht ist. Die Vorgehensweise für einen UnitTest ist die folgende:
+Ein sauberer = lesbarer Unit-Test ist es dann, wenn er klar, einfach und ausdrucksstark ist. Die Vorgehensweise für einen Unit-Test ist die folgende:
 \begin{itemize}
   \item Erstellen der Testdaten (\textbf{A}rrange)
   \item Manipulieren der Testdaten (\textbf{A}ct)
-  \item Verifaktion der Ergebnisse (\textbf{A}ssert)
+  \item Verifikation der Ergebnisse (\textbf{A}ssert)
 \end{itemize}
 
 \subsubsection{Vorsätze für gute Testfälle}
@@ -268,10 +267,10 @@ Macht sie einzeln viel verständlicher. Häuft die Anzahl von Funktionen und Kla
 In Zahlen ausgedrückt - am Besten so um 20 Zeilen - max. 100. Maximal 150 Zeichen breit. Und keine unübersichtlichen Verschachtlungen! Max 2 Ebenen.
 
 \subsubsection{Pro Funktion nur eine Aufgabe}
-Eine Funktion soll nur etwas machen.  Und ihr Name sollte möglichst präzise genau das vermitteln. Der Trick dabei: das Wörtchen \emph{to} verwenden.  
+Eine Funktion soll nur etwas machen. Und ihr Name sollte möglichst präzise genau das vermitteln. Der Trick dabei: das Wörtchen \emph{to} verwenden.
 Nebeneffekte werden so ebenfalls vermieden - eine Passwortcheck-Funktion soll nicht noch eine Session-Initialisierung enthalten. 
 Unter diesem Aspekt fallen auch Anweisungen/Abfragen - eine Funktion die ein Name einfügt, soll nicht noch einen \texttt{false}-Wert zurückgeben, wenn der Name bereits existiert. Besser trennen in eine Abfragefunktion und eine Zuweisungsfunktion. 
-Wenn Fehler in einer Funktion aufreten - Exception werfen! Ansonsten wird der Rückgabewert nochmals ausgewertet werden und wird womöglich noch falsch interpretiert.
+Wenn Fehler in einer Funktion auftreten - Exception werfen! Ansonsten wird der Rückgabewert nochmals ausgewertet werden und wird womöglich noch falsch interpretiert.
 Eine Fehlerbehandlung ist übrigens auch eine Aufgabe, das heisst es gibt Funktionen die nur das machen.
 
 \subsubsection{Nur eine Abstraktionsebene pro Funktion}
@@ -287,4 +286,4 @@ Absolut maximal 3. Bereits ab 2 eine Gefahr der Verwechslung da. Dies erreicht m
 Argumente sollen nur als Input für eine Funktionen dienen, an den übergebenen Objekten soll nichts verändert werden.
 
 \subsubsection{Tote Funktionen löschen}
-Wird eine Funktion nie aufgerufen - weg damit. Wenn sie wieder benötigt wird, hat man ja alles im VCS.
+Wird eine Funktion nie aufgerufen - weg damit. Wenn sie wieder benötigt wird, hat man ja alles im \ac{VCS}.
