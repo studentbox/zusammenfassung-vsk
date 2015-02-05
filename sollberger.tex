@@ -10,40 +10,40 @@ Bei den Komponentenarchitekturen werden grundsätzlich zwischen Client (kurzlebi
 \subsubsection{Middleware}
 
 Eine Middleware vermittelt zwischen Anwendungen und verbirgt dadurch die Komplexität und Infrastruktur dieser Kommunikation. Es wird zwischen folgenden Middleware-Kategorien unterschieden:
-\begin{itemize}
-	\item \textbf{Kommunikationsorientierte Middleware} \\
+\begin{description}
+	\item[Kommunikationsorientierte Middleware] \hfill \\
 		  Die Netzwerkprogrammierung wird abstrahiert (z.B. RMI, Web Services)
-	\item \textbf{Nachrichtenorientierte Middleware} \\
+	\item[Nachrichtenorientierte Middleware] \hfill \\
 		  Tauscht Nachrichten (messages) über Warteschlangen (queues) aus (z.B. JMS, SOAP)
-	\item \textbf{Anwendungsorientierte Middleware} \\
+	\item[Anwendungsorientierte Middleware] \hfill \\
 		  Ist auf verteilte Anwendungen optimiert (z.B. CORBA, Microsoft .NET)
-\end{itemize} 
+\end{description} 
 
 \subsection{Sie kennen die wichtigsten Konzepte und Begriffe von Remote Procedure Call (RPC) / Remote Message Invocation (RMI)}
 
 \subsubsection{Remote Procedure Call (RPC)}
 
 RPC ist eine Middleware, die es einem Client ermöglicht Funktionen auf einem entfernten Server wie lokal aufzurufen. Die Kommunikation wird mit einer Schnittstelle beschrieben (z.B. mit Interface Definition Language). Damit man über RPC kommunizieren kann braucht man folgende Komponenten:
-\begin{itemize}
-	\item \textbf{Client Stub} \\
+\begin{description}
+	\item[Client Stub] \hfill \\
 	Der Client Stub verpackt die Nachricht (marshalling) und schickt sie an den Server. Kommt die Antwort vom Server zurück verarbeitet der Client Stub diese.
-	\item \textbf{RPC Infrastruktur} \\
-	stellt Laufzeitumgebung und Infrastruktur zur Verfügung (Binding, Starten/Stoppen der Serverprozesse usw.)
-	\item \textbf{Server Stub} \\
+	\item[RPC Infrastruktur] \hfill \\
+	Die RPC Infrastruktur stellt Laufzeitumgebung und Infrastruktur zur Verfügung (Binding, Starten/Stoppen der Serverprozesse usw.)
+	\item[Server Stub] \hfill \\
 	Der Server Stub entpackt die Nachricht (unmarshalling) vom Client und ruft eine entsprechende Prozedur auf. Wurde die Anfrage verarbeitet schickt er das Ergebnis an den Client.
-\end{itemize}
+\end{description}
 Bei der RPC Kommunikation können Fehler auftreten (Client/Server fällt aus, Nachrichten gehen verloren usw.). Deshalb wurden folgende Fehlersemantiken definiert:
 
-\begin{itemize}
-	\item \textbf{Maybe Semantik} \\
+\begin{description}
+	\item[Maybe Semantik] \hfill \\
 	Keinerlei Garantie dass die Prozedur ausgeführt wird und der Client eine Antwort erhält.
-	\item \textbf{At-least-once Semantik} \\
+	\item[At-least-once Semantik]  \hfill \\
 	Wenn der Client nach einer gewissen Zeit keine Antwort erhält wird die Prozedur nochmals aufgerufen. Die Prozedur kann deshalb beim Server mehrmals aufgerufen werden (Client kriegt mehrere Antworten). Hilft bei Nachrichtenverlust jedoch nicht bei einem Serverausfall.
-	\item \textbf{At-most-once Semantik} \\
+	\item[At-most-once Semantik] \hfill \\
 	Der Server überprüft dass die Prozedur vom Client höchstens einmal ausgeführt wurde. Bei einem Serverausfall kriegt der Client keine Antwort.
-	\item \textbf{Exactly-once Semantik} \\
+	\item[Exactly-once Semantik] \hfill \\
 	Sowohl beim Nachrichtenverlust als auch bei einem Serverausfall wird die Prozedur nach dem Neustart garantiert einmal verarbeitet und der Client erhält genau eine Antwort.
-\end{itemize}
+\end{description}
 
 \subsubsection{Remote Methode Invocation (RMI)}
 
@@ -75,13 +75,11 @@ subject.someRemoteMethod();
 \subsection{Sie kennen die wichtigsten Konzepte und Begriffe von Message Oriented Middleware (MoM)}
 
 Bei \ac{MoM} werden Nachrichten (messages) über Warteschlangen (queues) ausgetauscht. Dadurch werden Client und Server voneinander entkoppelt (d.h. sie müssen nicht gleichzeitig aktiv sein). Es existieren zwei Kommunikationsmodelle:
-\begin{itemize}
-	\item \textbf{point-to-point} \\
-		  Jede Nachricht hat genau ein Konsument.
+\begin{description}
+	\item[point-to-point:] Jede Nachricht hat genau ein Konsument.
 		  
-	\item \textbf{publish / subscribe} \\
-		  Herausgeber stellt allen Abonnenten eine Kopie der Nachricht zur Verfügung.
-\end{itemize}
+	\item[publish / subscribe:] Herausgeber stellt allen Abonnenten eine Kopie der Nachricht zur Verfügung.
+\end{description}
 Es gibt robuste und stabile Produkte (SOAP, Microsoft Message Queueing) welche auf \ac{MoM} basieren jedoch keinen einheitlichen Standard. Java EE bietet mit dem \ac{JMS} einen Message Dienst an.
 
 \subsection{Sie kennen die wichtigsten Konzepte und Begriffe von CORBA IDL und CORBA}
@@ -89,14 +87,11 @@ Es gibt robuste und stabile Produkte (SOAP, Microsoft Message Queueing) welche a
 \subsubsection{CORBA}
 
 CORBA ist eine Middleware Technologie, die mithilfe des \ac{ORB} eine Kommunikation zwischen entfernten Objekten ermöglicht. Die Objekte und deren Funktionalität sind von der Kommunikation der Objekte völlig getrennt. CORBA besteht aus folgenden Komponenten:
-\begin{itemize}
-	\item \textbf{Anwenderobjekten} \\
-		  Anwenderobjekte werden vom Programmierer erstellt und genutzt.
-	\item \textbf{CORBA Facilities} \\
-		  CORBA Facilities sind anwendungsorientierte Dienstleistungen (z.B. Druckdienst)
-	\item \textbf{CORBA Services} \\
-		  Die CORBA Services sind von der \ac{OMG} definiert und mittels IDL beschrieben. Der wichtigste Service ist der Naming Service, welcher verständliche Namen auf die Objektreferenz abbildet. Es gibt noch weitere Services wie z.B. der Persistent Object Service welcher Objekte in einer Datenbank speichert.
-\end{itemize}
+\begin{description}
+	\item[Anwenderobjekten] werden vom Programmierer erstellt und genutzt.
+	\item[CORBA Facilities] sind anwendungsorientierte Dienstleistungen (z.B. Druckdienst)
+	\item[CORBA Services] sind von der \ac{OMG} definiert und mittels IDL beschrieben. Der wichtigste Service ist der Naming Service, welcher verständliche Namen auf die Objektreferenz abbildet. Es gibt noch weitere Services wie z.B. der Persistent Object Service welcher Objekte in einer Datenbank speichert.
+\end{description}
 Die oben beschriebenen Objekte können über den \ac{ORB} aufgerufen werden. Abbildung \ref{fig:corba} zeigt die Bestandteile des \acp{ORB}.
 
 \mygraphics{0.7\textwidth}{fig/corba.png}{ORB Teilsysteme}{corba}

@@ -14,16 +14,12 @@ In Java sind Komponenten normale Klassen. Diese Klassen können sich an die Java
 \subsubsection{Modularisierung}
 
 Durch Modularisierung wird versucht die Kopplung zu minimieren und die Kohäsion zu maximieren. Modulare Software sollte nach folgenden Kriterien entworfen werden:
-\begin{itemize}
-	\item \textbf{Zerlegbarkeit} \\
-		  Zerlege ein Problem in weniger komplexe Teilprobleme (sollten unabhängig voneinander entwickelbar sein)
-	\item \textbf{Kombinierbarkeit} \\
-		  Die Software-Elemente sollten sich auch in einem anderen Umfeld einsetzen lassen
-	\item \textbf{Verständlichkeit} \\
-		  Der Quellcode eines Moduls sollte man verstehen ohne die anderen Module zu kennen
-	\item \textbf{Stetigkeit} \\
-		  Kleine Änderungen der Anforderungen sollten nur einen kleinen Teil der Module betreffen
-\end{itemize}
+\begin{description}
+	\item[Zerlegbarkeit:] Zerlege ein Problem in weniger komplexe Teilprobleme (sollten unabhängig voneinander entwickelbar sein)
+	\item[Kombinierbarkeit:] Die Software-Elemente sollten sich auch in einem anderen Umfeld einsetzen lassen
+	\item[Verständlichkeit:] Der Quellcode eines Moduls sollte man verstehen ohne die anderen Module zu kennen
+	\item[Stetigkeit:] Kleine Änderungen der Anforderungen sollten nur einen kleinen Teil der Module betreffen
+\end{description}
 Folgende Prinzipien sollten ebenfalls beachtet werden:
 \begin{itemize}
 	\item lose Kopplung (Abbildung \ref{fig:kopplung_kohaesion})
@@ -53,33 +49,27 @@ Schnittstellen sollten nach folgenden Kriterien entworfen werden:
 	\item Schnittstellen sollen gut dokumentiert sein
 \end{itemize}
 Beim \ac{DbC} wird das Zusammenspiel der Komponenten mit einem Vertrag geregelt. Der Vertrag besteht aus:
-\begin{itemize}
-	\item \textbf{Preconditions} \\
-		  Zusicherungen die der Nutzer einzuhalten hat.
-	\item \textbf{Postconditions} \\
-		  Nachbedingungen die der Anbieter garantiert.
-	\item \textbf{Invarianten Bedingung} \\ 
-		  Der Anbieter muss sicherstellen, dass Invarianten vor- und nach der Ausführung jeder Methode gelten.
-\end{itemize}
+\begin{description}
+	\item[Preconditions:] Zusicherungen die der Nutzer einzuhalten hat.
+	\item[Postconditions:] Nachbedingungen die der Anbieter garantiert.
+	\item[Invarianten Bedingung:] Der Anbieter muss sicherstellen, dass Invarianten vor- und nach der Ausführung jeder Methode gelten.
+\end{description}
 
 \subsection{Sie können verschiedene Arten von Schnittstellen angemessen dokumentieren}
 
 Jede Programmschnittstelle definiert eine Menge von Methoden mit den folgenden Eigenschaften:
-\begin{itemize}
-	\item \textbf{Syntax} \\
-		  Wird mit der verwendeten Programmiersprache beschrieben (Rückgabewerte, Argumente usw.).
-	\item \textbf{Semantik} \\
-		  Was bewirkt die Methode? Es gibt keine allgemein akzeptierte Form der Dokumentation.
-	\item \textbf{Protokoll} \\
-		  Wird z.B. ein synchrones oder asynchrones Protokoll verwendet.
-	\item \textbf{Nichtfunktionale Eigenschaften} \\
-		  Weitere Faktoren wie z.B. Performance, Robustheit, Verfügbarkeit usw.
-\end{itemize}
+\begin{description}
+	\item[Syntax:] Wird mit der verwendeten Programmiersprache beschrieben (Rückgabewerte, Argumente usw.).
+	\item[Semantik:] Was bewirkt die Methode? Es gibt keine allgemein akzeptierte Form der Dokumentation.
+	\item[Protokoll:] Wird z.B. ein synchrones oder asynchrones Protokoll verwendet.
+	\item[Nichtfunktionale Eigenschaften:] Weitere Faktoren wie z.B. Performance, Robustheit, Verfügbarkeit usw.
+\end{description}
+
+\newpage
+
 Abbildung \ref{fig:schnittstellen} zeigt die verschiedenen Schnittstellen-Typen.
 
 \mygraphics{0.7\textwidth}{fig/schnittstellen.png}{Schnittstellen-Typen}{schnittstellen}
-
-\newpage
 
 \subsection{Sie können Komponenten entwerfen, dokumentieren, in Java realisieren, testen und deployen}
 
@@ -147,23 +137,22 @@ Bei einem Review werden die Artefakte eines Projekts überprüft. Das Ziel ist F
 	\caption{Review-Arten}
 	\label{tab:reviewarten}
 \end{table}
-
-\begin{itemize}
-  \item \textbf{Inspection} \\
+\begin{description}
+  \item[Inspection] \hfill \\
   Die formalste Art des Reviews. Ist ein strukturierter, wohldefinierter Prozess. Eingesetzt für die kritischsten Architekturen / Entscheide.
-  \item \textbf{Team Review} \\
+  \item[Team Review] \hfill \\
   Eine Sitzung, wo Teile des Projekts genauer unter die Lupe genommen werden, ebenfalls geplant und strukturiert wie die Inspektion, aber nicht so formal.
-  \item \textbf{Walkthrough} \\
+  \item[Walkthrough] \hfill \\
   Der Autor stellt sein Produkt einer Gruppe von Fachkollegen vor. Ein Szenario und mögliche Alternativen werden durchgespielt.
-  \item \textbf{Pair Programming} \\
+  \item[Pair Programming] \hfill \\
   Zwei Entwickler arbeiten gemeinsam am selben Produkt.
-  \item \textbf{Peer Review} \\
+  \item[Peer Review] \hfill \\
   Ein Arbeitskollege überprüft das Ergebnis
-  \item \textbf{Passaround} \\
+  \item[Passaround] \hfill \\
   Ein Dokument wird vorbereitet und an verschiedene Personen versandt und deren Feedback eingeholt. Ist zeitlich sehr effizient, benötigt aber einiges an Disziplin.
-  \item \textbf{Ad Hoc Review} \\
+  \item[Ad Hoc Review] \hfill \\
   Normaler Bestandteil der Teamarbeit.
-\end{itemize}
+\end{description}
 
 \subsection{Sie kennen Bedeutung, Begrifflichkeit und Methoden des Konfigurationsmanagements}\label{sec:konfigurationsmanagement}
 
@@ -177,16 +166,12 @@ In einem System sind alle Teilsysteme (Software, Hardware usw.) Änderungen unte
 	\item \emph{documentation for installation, maintenance, operations etc.}
 \end{itemize} 
 Folgende Begriffe sind im \ac{SCM} wichtig:
-\begin{itemize}
-	\item \textbf{Version} \\
-		  Eine Version ist ein spezifisches, identifizierbares Artefakt auf einem bestimmten Entwicklungsstand.
-	\item \textbf{Revision} \\
-		  Eine Revision ist eine neue Version eines Artefaktes mit dem Zweck eine ältere abzulösen.
-	\item \textbf{Baseline} \\
-		  Eine Baseline ist ein Satz von Revisionen, d.h. ein Snapshot der Konfiguration.
-	\item \textbf{Release} \\
-		  Ein Release ist eine getestete und freigegebene Baseline.
-\end{itemize}
+\begin{description}
+	\item[Version:] Eine Version ist ein spezifisches, identifizierbares Artefakt auf einem bestimmten Entwicklungsstand.
+	\item[Revision:] Eine Revision ist eine neue Version eines Artefaktes mit dem Zweck eine ältere abzulösen.
+	\item[Baseline:] Eine Baseline ist ein Satz von Revisionen, d.h. ein Snapshot der Konfiguration.
+	\item[Release:] Ein Release ist eine getestete und freigegebene Baseline.
+\end{description}
 
 \subsection{Sie können für ein kleines Entwicklungsprojekt Rahmen- und Sprint-Planung gemäss SoDa machen}
 
@@ -204,21 +189,13 @@ Ist Chefsache!
 
 Folgende Dokumente braucht es in einem SoDa-Projekt:
 
-\begin{itemize}
-	\item \textbf{Projektplan} \\
-		  Erstellung in der Initialisierungsphase, Aktualisierung bei jedem Meilenstein
-	\item \textbf{Grobkonzept} \\ 
-		  Erstellung in der Initialisierungsphase
-	\item \textbf{ProductBacklog} \\
-		  Erstellung in der Initialisierungsphase, laufende Pflege
-	\item \textbf{SprintBacklog} \\
-		  Erstellung zu Beginn jedes Sprints => Teil des Sprintplans
-	\item \textbf{Sprintplan} \\
-		  Erstellung zu Beginn jedes Sprints => Ablage im Anhang Projektplan
-	\item \textbf{SysSpec} \\
-		  Erstellung in der Initialisierungsphase, Ergänzung pro Inkrement
-	\item \textbf{Testplan} \\
-		  Erstellung im Projektplan, Ergänzung pro Inkrement
-	\item \textbf{Testprotokoll} \\
-		  Erstellung pro Inkrement
-\end{itemize}
+\begin{description}
+	\item[Projektplan:] Erstellung in der Initialisierungsphase, Aktualisierung bei jedem Meilenstein
+	\item[Grobkonzept:] Erstellung in der Initialisierungsphase
+	\item[ProductBacklog:] Erstellung in der Initialisierungsphase, laufende Pflege
+	\item[SprintBacklog:] Erstellung zu Beginn jedes Sprints => Teil des Sprintplans
+	\item[Sprintplan:] Erstellung zu Beginn jedes Sprints => Ablage im Anhang Projektplan
+	\item[SysSpec:] Erstellung in der Initialisierungsphase, Ergänzung pro Inkrement
+	\item[Testplan:] Erstellung im Projektplan, Ergänzung pro Inkrement
+	\item[Testprotokoll:] Erstellung pro Inkrement
+\end{description}
